@@ -22,7 +22,13 @@ export class StorageRepository {
   }
 
   delete(keys) {
-    this.storageArea.remove(keys, () => {})
+    return new Promise((resolve, reject) => {
+      this.storageArea.remove(keys, () => {
+        const { lastError } = this.runtime;
+        if (lastError) return reject(lastError)
+        resolve()
+      })
+    })
   }
 }
 
@@ -65,7 +71,7 @@ export class SessionMemory {
   }
 
   delete(keys) {
-    this.storageRepo.delete(keys)
+    return this.storageRepo.delete(keys)
   }
 }
 

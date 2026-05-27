@@ -59,8 +59,8 @@ async function migrateFromStorageToDB(storageRepo) {
   });
 
   if (items.length > 0) {
-    writeProfileItemsToTable(items);
-    storageRepo.delete(keys);
+    await writeProfileItemsToTable(items);
+    await storageRepo.delete(keys);
   }
 }
 

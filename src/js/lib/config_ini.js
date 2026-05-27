@@ -14,5 +14,5 @@ export async function saveConfigIni(storageRepo, text) {
 
 export async function deleteConfigIni(storageRepo) {
   const cts = new CompressedTextSplitter(storageRepo.kind);
-  storageRepo.delete(cts.getKeys());
+  await storageRepo.delete(cts.getKeys());
 }
