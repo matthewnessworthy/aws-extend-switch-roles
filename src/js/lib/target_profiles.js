@@ -1,6 +1,6 @@
 import { ConfigParser } from "aesr-config";
 import { DBManager } from "./db.js";
-import { loadConfigIni } from "./config_ini";
+import { loadConfigIni } from "./config_ini.js";
 import { StorageProvider } from "./storage_repository.js";
 
 export async function findTargetProfiles(ctx) {
