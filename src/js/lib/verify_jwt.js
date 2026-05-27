@@ -48,14 +48,16 @@ export async function validateKeyCode(keyCode) {
   for (; i < contents.length; i++) {
     const metadata = contents[i].trim();
     if (metadata.length === 0) break;
-    const [key, val] = metadata.split(': ');
+    const idx = metadata.indexOf(': ');
+    const key = idx === -1 ? metadata : metadata.slice(0, idx);
+    const val = idx === -1 ? undefined : metadata.slice(idx + 2);
     metadatas[key] = val;
   }
   const token = contents.slice(++i).join('');
 
   const data = await verifyJWT(token, jwkCertKey)
   if (data.organizationName) {
-    if (data.organizationName === metadatas['Organization Name'] && data.numberOfUsers === metadatas['Number of Users']) {
+    if (data.organizationName === metadatas['Organization Name'] && String(data.numberOfUsers) === metadatas['Number of Users']) {
       return { name: data.organizationName, exp: data.exp };
     }
   } else if (data.individualName) {
