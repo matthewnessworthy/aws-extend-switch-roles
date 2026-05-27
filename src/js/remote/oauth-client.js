@@ -22,7 +22,6 @@ export class OAuthClient {
     return {
       authorizeUrl: authorizeUrl + '?' + params.toString(),
       codeVerifier,
-      codeChallenge,
     };
   }
 
