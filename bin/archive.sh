@@ -2,7 +2,13 @@
 #--
 # archive.sh
 #--
-copydest=$1
+set -euo pipefail
+
+copydest="${1:-}"
+if [ ! -f dist/version ]; then
+  echo "dist/version not found; run the build first." >&2
+  exit 1
+fi
 version=$(cat dist/version)
 
 cd dist/chrome;
