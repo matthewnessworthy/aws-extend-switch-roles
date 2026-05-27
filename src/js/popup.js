@@ -1,7 +1,7 @@
 import { createRoleListItem } from './lib/create_role_list_item.js';
 import { CurrentContext } from './lib/current_context.js';
 import { findTargetProfiles } from './lib/target_profiles.js';
-import { SessionMemory, SyncStorageRepository } from './lib/storage_repository.js';
+import { SessionMemory, StorageProvider } from './lib/storage_repository.js';
 import { remoteCallback } from './handlers/remote_connect.js';
 import { writeProfileSetToTable } from './lib/profile_db.js';
 
@@ -72,7 +72,7 @@ window.onload = function() {
     return false;
   }
 
-  const storageRepo = new SyncStorageRepository(brw);
+  const storageRepo = StorageProvider.getSyncRepository();
   storageRepo.get(['visualMode', 'autoTabGrouping']).then(({ visualMode, autoTabGrouping }) => {
     const mode = visualMode || 'default';
     if (mode === 'dark' || (mode === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -129,7 +129,7 @@ function main() {
 }
 
 async function loadFormList(curURL, userInfo, tabId) {
-  const storageRepo = new SyncStorageRepository(brw);
+  const storageRepo = StorageProvider.getSyncRepository();
   const data = await storageRepo.get(['hidesAccountId', 'showOnlyMatchingRoles', 'autoTabGrouping', 'signinEndpointInHere']);
   const { hidesAccountId = false, showOnlyMatchingRoles = false, autoTabGrouping = false, signinEndpointInHere = false } = data;
 
