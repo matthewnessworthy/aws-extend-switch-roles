@@ -274,11 +274,11 @@ async function sendSwitchRole(tabId, data) {
 function getCurrentUrlandRegion(aURL) {
   const url = aURL.href;
   let region = '';
-  const md = aURL.search.match(/region=([a-z\-1-9]+)/);
+  const md = aURL.search.match(/region=([a-z0-9-]+)/);
   if (md) region = md[1];
 
   let isLocal = false;
-  const mdsd = aURL.host.match(/(([a-z]{2}\-[a-z-]+\-[1-9])\.)?console\.(aws|amazonaws)/);
+  const mdsd = aURL.host.match(/(([a-z]{2}-[a-z-]+-\d+)\.)?console\.(aws|amazonaws)/);
   if (mdsd) {
     const [,, cr = 'us-east-1'] = mdsd;
     if (cr === region) isLocal = true;
