@@ -50,9 +50,9 @@ export async function getRemoteConnectInfo() {
   return remoteConnectInfo;
 }
 
-export function deleteRemoteConnectInfo() {
+export async function deleteRemoteConnectInfo() {
   const localRepo = StorageProvider.getLocalRepository();
-  localRepo.delete(['remoteConnectInfo']);
+  await localRepo.delete(['remoteConnectInfo']);
 }
 
 export async function deleteRefreshTokenFromRemoteConnectInfo() {
