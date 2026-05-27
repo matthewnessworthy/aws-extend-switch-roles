@@ -56,6 +56,7 @@ chrome.runtime.onMessageExternal.addListener(function (message, sender, sendResp
       });
     }, 1000); // delay to prevent to try scanning id
   });
+  return true; // keep the channel open for the async sendResponse (Chrome MV3)
 });
 
 function createTabGroupKey(title) {
