@@ -10,7 +10,20 @@ export function createRoleListItem(document, item, url, region, { hidesAccountId
     headSquare.style.backgroundColor = '#aaaaaa';
   }
   if (item.image) {
-    headSquare.style.backgroundImage = `url('${item.image.replace(/"/g, '')}')`;
+    // Validate as an http(s) URL before using it in a CSS url(). The image
+    // value can originate from an externally pushed config, so reject anything
+    // that is not a parseable web URL to prevent CSS injection / breakout.
+    const rawImage = item.image.replace(/"/g, '');
+    let safeImageUrl = null;
+    try {
+      const parsed = new URL(rawImage);
+      if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+        safeImageUrl = parsed.href;
+      }
+    } catch {}
+    if (safeImageUrl) {
+      headSquare.style.backgroundImage = `url("${encodeURI(safeImageUrl)}")`;
+    }
   }
 
   const anchor = document.createElement('a');
