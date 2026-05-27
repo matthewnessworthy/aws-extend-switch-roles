@@ -28,6 +28,8 @@ async function verifyJWT(token, key) {
   const cryptoKey = await crypto.subtle.importKey('jwk', key, algorithm, true, ['verify']);
 
   const [head, claim, sig] = token.split('.');
+  const header = JSON.parse(decodeBase64Url(head));
+  if (header.alg !== 'RS256') throw new Error('Unexpected JWT alg');
   const signature = toBuffer(decodeBase64Url(sig));
   const payload = toBuffer(`${head}.${claim}`);
 
