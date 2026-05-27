@@ -34,6 +34,13 @@ export class DBManager {
     }
   }
 
+  // NOTE: an IndexedDB transaction auto-commits once no requests remain
+  // pending at the end of a microtask turn. This relies on `trFuncWithTable`
+  // issuing its cursor/insert requests back-to-back; callers must not await a
+  // foreign (non-IDB) promise between table operations, or the transaction can
+  // commit early in stricter engines (Firefox has historically been stricter
+  // than Chrome here). `tran.commit()` finalizes explicitly once the callback
+  // chain settles.
   transaction(storeName, trFuncWithTable, permission = 'readwrite') {
     if (!this.db) throw new Error('Database not opend');
 
