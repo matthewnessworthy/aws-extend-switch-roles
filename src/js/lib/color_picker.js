@@ -20,11 +20,7 @@ export class ColorPicker {
         me.onpick(this.value);
       }
     }
-  
-    colorValue.oninput = function() {
-      colorPicker.value = '#'+this.value;
-    }
-  
+
     colorValue.onkeypress = function(evt) {
       if (evt.keyCode === 13) {
         if (me.onpick != null) {
