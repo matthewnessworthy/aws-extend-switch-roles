@@ -4,6 +4,7 @@ import { writeProfileItemsToTable, refreshDB } from "../lib/profile_db.js";
 import { StorageProvider } from "../lib/storage_repository.js";
 import { saveConfigIni } from "../lib/config_ini.js";
 import { reloadConfig } from "../lib/reload-config.js";
+import { CompressedTextSplitter } from "../lib/compressed_text_splitter.js";
 
 export async function updateProfilesTable() {
   const syncRepo = StorageProvider.getSyncRepository();
@@ -65,6 +66,7 @@ async function migrateFromStorageToDB(storageRepo) {
 }
 
 async function copyLztextFromSyncToLocal(syncRepo, localRepo) {
-  const { lztext } = await syncRepo.get(['lztext']);
-  await localRepo.set({ lztext });
+  const cts = new CompressedTextSplitter('sync');
+  const data = await syncRepo.get(cts.getKeys());
+  await localRepo.set(data);
 }
