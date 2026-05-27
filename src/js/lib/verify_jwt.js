@@ -6,11 +6,7 @@ const jwkCertKey = {
 
 async function verifyJWT(token, key) {
   const decodeBase64Url = (str) => {
-    const convmap = {
-      '-': '+',
-      '_': '/',
-    };
-    const urlUnsafed = str.replace(/([\-_=])/g, (match, p1) => convmap[p1]);
+    const urlUnsafed = str.replace(/-/g, '+').replace(/_/g, '/').replace(/=+$/, '');
     return atob(urlUnsafed);
   }
 
