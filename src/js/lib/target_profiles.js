@@ -5,11 +5,15 @@ import { StorageProvider } from "./storage_repository.js";
 
 export async function findTargetProfiles(ctx) {
   try {
-    return await retrieveTargetProfilesFromDB(ctx);
-  } catch (err) {
-    // Firefox private browsing
-    return await retrieveTargetProfilesFromLztext(ctx);
+    const profiles = await retrieveTargetProfilesFromDB(ctx);
+    // Firefox container tabs get an isolated, empty IndexedDB while the
+    // (non-partitioned) local storage config still holds the profiles, so an
+    // empty DB result must fall through to lztext rather than be returned.
+    if (profiles.length > 0) return profiles;
+  } catch (_) {
+    // IndexedDB unavailable (e.g. Firefox private browsing) — use lztext.
   }
+  return await retrieveTargetProfilesFromLztext(ctx);
 }
 
 async function retrieveTargetProfilesFromDB(ctx) {

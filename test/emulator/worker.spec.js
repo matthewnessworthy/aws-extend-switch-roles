@@ -14,6 +14,10 @@ testInWorker('findProfilesTable tests', async () => {
   await self.__tests__.findTargetProfilesTest();
 })
 
+testInWorker('findProfilesTable from lztext fallback tests', async () => {
+  await self.__tests__.findTargetProfilesFromLztextTest();
+})
+
 testInWorker('updateProfilesTable tests', async () => {
   for (const test of [
     self.__tests__.updateProfilesTableMigrateSyncTest,

@@ -1,5 +1,7 @@
 import { DBManager } from '../js/lib/db.js';
 import { findTargetProfiles } from '../js/lib/target_profiles.js';
+import { saveConfigIni } from '../js/lib/config_ini.js';
+import { StorageProvider } from '../js/lib/storage_repository.js';
 
 export async function findTargetProfilesTest() {
   const dbManager = new DBManager('aesr');
@@ -88,5 +90,37 @@ export async function findTargetProfilesTest() {
   assert(resultsX, [
     { profilePath: '[SINGLE];000012', name: 'test', aws_account_id: '999900000000', role_name: 'entry-user', image: 'https://example.com/t.png' },
     { profilePath: '[SINGLE];000013', name: 'SandBox', aws_account_id: '999900001111', role_name: 'user' },
+  ]);
+}
+
+// Regression for #405: Firefox container tabs get an isolated, empty IndexedDB
+// while the config still lives in (non-partitioned) local storage. The DB opens
+// fine and returns no rows, so retrieval must fall back to lztext instead of
+// returning the empty DB result.
+export async function findTargetProfilesFromLztextTest() {
+  // Empty IndexedDB stands in for the isolated container-tab database.
+  const dbManager = new DBManager('aesr');
+  await dbManager.open();
+  await dbManager.transaction('profiles', dbTable => dbTable.truncate());
+  await dbManager.close();
+
+  await saveConfigIni(StorageProvider.getLocalRepository(), `[profile base]
+aws_account_id = 111100000000
+
+[target-dev]
+role_arn = arn:aws:iam::111100001111:role/developer
+source_profile = base
+color = 112233
+region = us-west-2
+
+[single-acct]
+aws_account_id = 999900000000
+role_name = entry-user
+`);
+
+  const results = await findTargetProfiles({ baseAccount: '111100000000', loginRole: 'base-user' });
+  assert(results, [
+    { name: 'single-acct', aws_account_id: '999900000000', role_name: 'entry-user' },
+    { name: 'target-dev', aws_account_id: '111100001111', role_name: 'developer', color: '112233', region: 'us-west-2' },
   ]);
 }
