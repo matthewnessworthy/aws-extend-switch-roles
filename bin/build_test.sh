@@ -2,6 +2,8 @@
 #--
 # build_test.sh
 #--
+set -euo pipefail
+
 destdir=test/extension
 
 cp src/*.html $destdir/

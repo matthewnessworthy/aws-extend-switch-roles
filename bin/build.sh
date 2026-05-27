@@ -2,6 +2,7 @@
 #--
 # build.sh
 #--
+set -euo pipefail
 
 mkdir -p dist/chrome/js
 mkdir -p dist/firefox/js
@@ -21,7 +22,7 @@ rollup -c ./rollup.config.js src/js/supporters.js --file $supporters
 \cp -f $background dist/firefox/js/background.js
 \cp -f $supporters dist/firefox/js/supporters.js
 
-bin/setup_manifest.mjs $1
+bin/setup_manifest.mjs ${1:-}
 
 browsers=("chrome" "firefox")
 for brw in ${browsers[@]}
