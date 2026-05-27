@@ -56,11 +56,11 @@ export class OAuthClient {
       },
       body: new URLSearchParams(params),
     });
-    const result = await res.json();
     if (!res.ok) {
-      throw new Error(result.error);
+      const code = await parseErrorCode(res);
+      throw new Error(code || `token endpoint returned ${res.status}`);
     }
-    return result;
+    return await res.json();
   }
 
   async getIdTokenByRefresh(refreshToken) {
@@ -77,13 +77,14 @@ export class OAuthClient {
       },
       body: new URLSearchParams(params),
     });
-    const result = await res.json();
     if (!res.ok) {
-      if (result.error === 'invalid_grant') {
-        throw new RefreshTokenError('refresh token is invalid');
+      const code = await parseErrorCode(res);
+      if (res.status === 400 || res.status === 401 || code === 'invalid_grant') {
+        throw new RefreshTokenError(code || 'refresh token is invalid');
       }
-      throw new Error(result.error);
+      throw new Error(code || `token endpoint returned ${res.status}`);
     }
+    const result = await res.json();
     return result.id_token;
   }
 
@@ -94,12 +95,24 @@ export class OAuthClient {
         'Authorization': 'Bearer ' + idToken,
       },
     })
-    const result = await res.json();
     if (!res.ok) {
-      throw new Error(result.message);
+      const code = await parseErrorCode(res);
+      throw new Error(code || `user config endpoint returned ${res.status}`);
     }
-    return result;
+    return await res.json();
   }
 }
 
 export class RefreshTokenError extends Error {}
+
+// Defensively read an error code from a non-OK response. A 5xx/gateway error
+// often returns text/html or an empty body, so res.json() can throw; treat
+// that as "no code" rather than letting a SyntaxError mask the real failure.
+async function parseErrorCode(res) {
+  try {
+    const data = await res.json();
+    return data.error || data.message || null;
+  } catch {
+    return null;
+  }
+}
