@@ -17,6 +17,10 @@ export function createCodeVerifier() {
   return str;
 }
 
+export function createState() {
+  return encodeBase64URL(randomData(16));
+}
+
 function randomData(len) {
   const arr = new Uint8Array(len);
   return window.crypto.getRandomValues(arr);

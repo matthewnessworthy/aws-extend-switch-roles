@@ -1,4 +1,4 @@
-import { createCodeChallenge, createCodeVerifier } from './code-util.js';
+import { createCodeChallenge, createCodeVerifier, createState } from './code-util.js';
 
 export class OAuthClient {
   constructor(subdomain, clientId) {
@@ -9,6 +9,7 @@ export class OAuthClient {
   async startAuthFlow() {
     const codeVerifier = createCodeVerifier();
     const codeChallenge = await createCodeChallenge(codeVerifier);
+    const state = createState();
 
     const authorizeUrl = `https://auth.${this.domain}/oauth2/authorize`
     const params = new URLSearchParams({
@@ -16,17 +17,19 @@ export class OAuthClient {
       client_id: this.clientId,
       redirect_uri: `https://api.${this.domain}/callback`,
       code_challenge_method: 'S256',
-      code_challenge: codeChallenge
+      code_challenge: codeChallenge,
+      state
     })
 
     return {
       authorizeUrl: authorizeUrl + '?' + params.toString(),
       codeVerifier,
       codeChallenge,
+      state,
     };
   }
 
-  validateCallbackUrl(uRL) {
+  validateCallbackUrl(uRL, expectedState) {
     if (uRL.host !== `api.${this.domain}` || uRL.pathname !== '/callback') {
       throw new Error('Invalid callback URL');
     }
@@ -36,6 +39,9 @@ export class OAuthClient {
       const errDesc = uRL.searchParams.get('error_description');
       if (errDesc) errmsg += ': ' + errDesc;
       throw new Error(errmsg);
+    }
+    if (expectedState && uRL.searchParams.get('state') !== expectedState) {
+      throw new Error('State mismatch');
     }
     const authCode = uRL.searchParams.get('code');
     if (!authCode) throw new Error('Authorization code missing from callback');

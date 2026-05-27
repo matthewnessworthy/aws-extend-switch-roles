@@ -10,8 +10,8 @@ export async function remoteConnect(subdomain, clientId) {
   if (!granted) return;
 
   const oauthClient = new OAuthClient(subdomain, clientId);
-  const { authorizeUrl, codeVerifier } = await oauthClient.startAuthFlow();
-  const remoteConnectParams = { subdomain, clientId, codeVerifier };
+  const { authorizeUrl, codeVerifier, state } = await oauthClient.startAuthFlow();
+  const remoteConnectParams = { subdomain, clientId, codeVerifier, state };
   await sessionMemory.set({ remoteConnectParams });
 
   window.location.href = authorizeUrl;
@@ -19,10 +19,10 @@ export async function remoteConnect(subdomain, clientId) {
 
 export async function remoteCallback(uRL) {
   const { remoteConnectParams } = await sessionMemory.get(['remoteConnectParams']);
-  const { subdomain, clientId, codeVerifier } = remoteConnectParams;
+  const { subdomain, clientId, codeVerifier, state } = remoteConnectParams;
 
   const oauthClient = new OAuthClient(subdomain, clientId);
-  const authCode = oauthClient.validateCallbackUrl(uRL);
+  const authCode = oauthClient.validateCallbackUrl(uRL, state);
 
   const now = nowEpochSeconds();
   const resultToken = await oauthClient.verify(codeVerifier, authCode);
