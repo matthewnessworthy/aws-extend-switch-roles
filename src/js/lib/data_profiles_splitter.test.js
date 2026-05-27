@@ -52,6 +52,12 @@ describe('DataProfilesSplitter', () => {
       expect(profiles.length).to.eq(3);
       for (let i = 0; i < 3; i++) expect(profiles[i].profile).to.eq(`p${i}`);
     })
+
+    it('returns an empty array when the dataSet has no profiles (fresh install)', () => {
+      const profiles = dps.profilesFromDataSet({})
+
+      expect(profiles).to.be.an('array').that.is.empty;
+    })
   })
 
   describe('#profilesToDataSet', () => {

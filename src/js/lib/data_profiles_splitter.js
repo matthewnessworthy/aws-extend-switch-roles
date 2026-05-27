@@ -4,7 +4,7 @@ export class DataProfilesSplitter {
   }
 
   profilesFromDataSet(dataSet) {
-    let profiles = dataSet.profiles;
+    let profiles = dataSet.profiles || [];
     for (let i = 1; i < 5; i++) {
       const key = `profiles_${i}`;
       if (key in dataSet && dataSet[key].length > 0) {
