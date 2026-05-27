@@ -64,7 +64,14 @@ function createTabGroupKey(title) {
 
 let listeningTabGroupsRemove = false;
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  onMessageAsync(message)
+    .then(() => sendResponse({}))
+    .catch((err) => { console.error(err); sendResponse({}); });
+  return true; // keep the message channel open for the async sendResponse (Chrome MV3)
+});
+
+async function onMessageAsync(message) {
   if (message.action === 'listenTabGroupsRemove' && !listeningTabGroupsRemove) {
     chrome.tabGroups.onRemoved.addListener(async function (group) {
       const key = createTabGroupKey(group.title);
@@ -103,8 +110,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
       await sessionMemory.set({ [key]: `https://${signinHost}/sessions/${sessionId}/v1/logout` });
     }
   }
-  sendResponse({});
-});
+}
 
 function getTabGroupColor(hexColor) {
   if (!hexColor) return 'grey';
