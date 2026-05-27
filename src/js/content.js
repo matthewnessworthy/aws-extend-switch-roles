@@ -34,7 +34,9 @@ function adjustPrismDisplayNameColor() {
     if (frColor && needsInvertForeColorByBack(frColor)) {
       spanEl.style.backgroundColor = "#bbbbbb";
     }
-  } catch {}
+  } catch (e) {
+    console.warn('AESR: failed to adjust Prism display name color', e);
+  }
 }
 
 function appendAESR() {
@@ -67,7 +69,9 @@ function getMetaData() {
     try {
       const json = asd.getAttribute('content');
       Object.assign(result, JSON.parse(json));
-    } catch (e) {}
+    } catch (e) {
+      console.warn('AESR: failed to parse awsc-session-data', e);
+    }
   }
 
   if (!result.signInEndpoint) {
@@ -105,7 +109,9 @@ function loadInfo(cb) {
       const json = document.getElementById('AESR_info').dataset.content;
       accountInfo = JSON.parse(json);
       accountInfo.prism = session.prismModeEnabled;
-    } catch {}
+    } catch (e) {
+      console.warn('AESR: failed to read AESR_info', e);
+    }
     cb(accountInfo);
     this.remove();
   };
