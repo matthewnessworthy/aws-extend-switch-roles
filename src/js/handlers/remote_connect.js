@@ -58,6 +58,7 @@ export async function deleteRemoteConnectInfo() {
 export async function deleteRefreshTokenFromRemoteConnectInfo() {
   const localRepo = StorageProvider.getLocalRepository();
   const { remoteConnectInfo } = await localRepo.get(['remoteConnectInfo']);
+  if (!remoteConnectInfo) return;
   delete remoteConnectInfo.refreshToken;
   await localRepo.set({ remoteConnectInfo });
 }
