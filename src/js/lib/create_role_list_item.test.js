@@ -114,6 +114,23 @@ background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span>pr
     });
   });
 
+  describe('profile has a malicious image value', () => {
+    it('rejects non-URL image input and sets no background-image', () => {
+      const item = {
+        name: 'evil',
+        aws_account_id: '333344441111',
+        role_name: 'img-role',
+        image: "x'); background-image: url('https://evil.example/x.png",
+      }
+      const url = 'https://console.aws.amazonaws.com/?region=us-east-1';
+      const li = createRoleListItem(window.document, item, url, 'us-east-1', {}, (sender, data) => {});
+
+      const headSquare = li.querySelector('.headSquare');
+      expect(headSquare.style.backgroundImage).to.eq('');
+      expect(li.querySelector('a').innerHTML).to.not.include('evil.example');
+    });
+  });
+
   describe('profile has region', () => {
     it('returns li element', () => {
       const item = {
