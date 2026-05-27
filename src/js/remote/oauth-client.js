@@ -27,17 +27,19 @@ export class OAuthClient {
   }
 
   validateCallbackUrl(uRL) {
-    if (uRL.host === `api.${this.domain}` && uRL.pathname === '/callback') {
-      const error = uRL.searchParams.get('error');
-      if (error) {
-        let errmsg = error;
-        const errDesc = uRL.searchParams.get('error_description');
-        if (errDesc) errmsg += ': ' + errDesc;
-        throw new Error(errmsg);
-      }
-      const authCode = uRL.searchParams.get('code');
-      if (authCode) return authCode;
+    if (uRL.host !== `api.${this.domain}` || uRL.pathname !== '/callback') {
+      throw new Error('Invalid callback URL');
     }
+    const error = uRL.searchParams.get('error');
+    if (error) {
+      let errmsg = error;
+      const errDesc = uRL.searchParams.get('error_description');
+      if (errDesc) errmsg += ': ' + errDesc;
+      throw new Error(errmsg);
+    }
+    const authCode = uRL.searchParams.get('code');
+    if (!authCode) throw new Error('Authorization code missing from callback');
+    return authCode;
   }
 
   async verify(codeVerifier, authCode) {
