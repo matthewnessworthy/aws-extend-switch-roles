@@ -31,5 +31,7 @@ do
   \cp -r src/js/war dist/$brw/js/
   \cp -r src/*.html dist/$brw/
   \cp -r icons  dist/$brw/
+  \cp -r src/css dist/$brw/
+  \cp -f src/js/theme-init.js dist/$brw/js/theme-init.js
 done
 echo "build done"
