@@ -23,7 +23,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design System Foundation** - Token system, pre-paint theming engine, and build/plumbing — the gate everything inherits from (completed 2026-05-28)
 - [x] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600 (completed 2026-05-28)
-- [ ] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages
+- [x] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages (completed 2026-05-28)
 - [ ] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode
 - [ ] **Phase 5: Accessibility, Cross-Browser & Release Audit** - Final WCAG 2.1 AA audit, Firefox/Edge smoke, and store/release prep
 
@@ -98,8 +98,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 2** *(blocked on Wave 1 completion; Plans 02 and 03 run in parallel)*
 
-- [ ] 03-02-PLAN.md — Wave 2: options.css (new) + options.html wiring + options.js updateMessage()/darkMode refactor
-- [ ] 03-03-PLAN.md — Wave 2: pages.css (new) + supporters/credits/updated HTML wiring
+- [x] 03-02-PLAN.md — Wave 2: options.css (new) + options.html wiring + options.js updateMessage()/darkMode refactor
+- [x] 03-03-PLAN.md — Wave 2: pages.css (new) + supporters/credits/updated HTML wiring
 
 **UI hint**: yes
 
@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
-| 3. Options & Auxiliary Surfaces | 1/3 | In Progress|  |
+| 3. Options & Auxiliary Surfaces | 3/3 | Complete   | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
