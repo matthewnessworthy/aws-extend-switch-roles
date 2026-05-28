@@ -98,4 +98,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-28 — Phase 3 complete (options page + 3 aux pages restyled; token system now covers all 5 surfaces)*
+*Last updated: 2026-05-28 — Phase 4 complete (theme toggle write-through + live-update wired; per-profile color swatches verified in both themes; THM-02, THM-04 validated)*
