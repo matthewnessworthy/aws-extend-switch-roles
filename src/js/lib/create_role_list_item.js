@@ -22,7 +22,7 @@ export function createRoleListItem(document, item, url, region, { hidesAccountId
       }
     } catch {}
     if (safeImageUrl) {
-      headSquare.style.backgroundImage = `url("${encodeURI(safeImageUrl)}")`;
+      headSquare.style.backgroundImage = `url("${safeImageUrl}")`;
     }
   }
 
