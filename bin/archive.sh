@@ -17,7 +17,7 @@ if [ -e $zipfile ]; then
   \rm $zipfile
 fi
 zip -r $zipfile \
-  manifest.json *.html icons/ js/ 
+  manifest.json *.html icons/ js/ css/
 echo "archived: chrome/$zipfile"
 if [ "$copydest" != "" ]; then
   \cp $zipfile $copydest
@@ -31,7 +31,7 @@ if [ -e $zipfile ]; then
   \rm $zipfile
 fi
 zip -r $zipfile \
-  manifest.json *.html icons/ js/ 
+  manifest.json *.html icons/ js/ css/
 
 echo "archived: firefox/$zipfile"
 if [ "$copydest" != "" ]; then
