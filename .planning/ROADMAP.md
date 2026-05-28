@@ -42,7 +42,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. `color-scheme` is set per theme on `:root` so native controls and scrollbars follow the active theme on Chrome, Firefox, and Edge; all 5 `<head>`s are wired (script + `<link>` chain; `credits.html`/`updated.html` gain a script).
   5. `bin/build.sh` (copy `src/css/` + `src/js/theme-init.js` verbatim in the `for brw` loop) and `bin/build_test.sh` (`cp -r src/css`) are updated so the build emits `dist/<brw>/css/*.css` and `dist/<brw>/js/theme-init.js`; no manifest, `rollup.config.js`, permission, or host change.
 
-**Plans**: 5 plansPlans:
+**Plans**: 5 plans
 **Wave 1**
 
 - [x] 01-01-PLAN.md — Wave 0: Test scaffolds (test/preview/index.html, foundation.spec.js, testInPreview fixture)
@@ -69,7 +69,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. The per-profile color swatch renders **legibly and AA-contrasted in both themes** (render-only via the chosen swatch rule — see Open Design Decision #1; stored value and console-header behavior unchanged), and AA contrast is met across popup text/UI in both themes.
   5. `npm test` (jsdom) **and** `npm run test_emulator` (Playwright) pass — or the relevant specs are updated deliberately in the same PR; nothing is imported, styled, or routed through `lib/content.js` / `lib/auto_assume_last_role.js`.
 
-**Plans**: TBD
+**Plans**: 3 plans
+**Wave 1** *(all parallel — no file overlap)*
+
+- [ ] 02-01-PLAN.md — Wave 1: popup.css (new) + popup.html update (remove inline style block, link popup.css, strip filter inline style, add sidebar break)
+- [ ] 02-02-PLAN.md — Wave 1: create_role_list_item.js two-line DOM (D-02) + test assertions updated
+- [ ] 02-03-PLAN.md — Wave 1: popup.js typed state renderers (D-05/D-06/D-07) + darkMode removal + loading state
+
 **UI hint**: yes
 
 ### Phase 3: Options & Auxiliary Surfaces
@@ -127,7 +133,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
-| 2. Popup Surface | 0/TBD | Not started | - |
+| 2. Popup Surface | 0/3 | Not started | - |
 | 3. Options & Auxiliary Surfaces | 0/TBD | Not started | - |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
