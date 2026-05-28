@@ -46,8 +46,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Wave 1**
 
 - [x] 01-01-PLAN.md — Wave 0: Test scaffolds (test/preview/index.html, foundation.spec.js, testInPreview fixture)
-- [ ] 01-02-PLAN.md — Wave 1: Token layer + pre-paint engine (src/css/tokens.css, src/js/theme-init.js)
-- [ ] 01-03-PLAN.md — Wave 1: Base reset + component shells (src/css/base.css, src/css/components.css)
+- [x] 01-02-PLAN.md — Wave 1: Token layer + pre-paint engine (src/css/tokens.css, src/js/theme-init.js)
+- [x] 01-03-PLAN.md — Wave 1: Base reset + component shells (src/css/base.css, src/css/components.css)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -126,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System Foundation | 1/5 | In Progress|  |
+| 1. Design System Foundation | 3/5 | In Progress|  |
 | 2. Popup Surface | 0/TBD | Not started | - |
 | 3. Options & Auxiliary Surfaces | 0/TBD | Not started | - |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
