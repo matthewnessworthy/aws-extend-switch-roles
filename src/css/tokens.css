@@ -102,6 +102,7 @@
     --color-bg-dropdown-item-hover: #131920;
     --color-bg-item-selected: #001129;
     --color-bg-button-primary: #42b4ff;
+    --color-bg-button-primary-hover: #1a73e8;
     --color-bg-button-normal-hover: #1b232d;
     --color-border-divider: #424650;
     --color-border-divider-secondary: #232b37;
@@ -140,6 +141,7 @@
   --color-bg-dropdown-item-hover: #131920;
   --color-bg-item-selected: #001129;
   --color-bg-button-primary: #42b4ff;
+  --color-bg-button-primary-hover: #1a73e8;
   --color-bg-button-normal-hover: #1b232d;
   --color-border-divider: #424650;
   --color-border-divider-secondary: #232b37;
