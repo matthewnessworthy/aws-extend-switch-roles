@@ -7,48 +7,9 @@
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
-  <style>
-  html { padding: 10px 40px }
-  body {
-    background-color: #fafafa;
-    color: #2d2d2d;
-    font-size: 14px;
-    line-height: 1.75;
-    padding: 0;
-    margin: 0;
-  }
-  a { text-decoration: none }
-  h1, h2, h3, p { margin: .5em 0 }
-  h2 { font-size: 18px; }
-  h3 { font-size: 15px; }
-  section { margin: 30px 0 }
-  code {
-    color: #222;
-    font-weight: bold;
-  }
-  ul > li { padding-left: .25em; }
-  ol > li { padding-left: .5em }
-  .buttons {
-    margin: 1.5em 0;
-  }
-  .sponsorButton {
-    border: 1px solid #bbb;
-    border-radius: .5em;
-    padding: .3em .8em .5em;
-    font-family: -apple-system,BlinkMacSystemFont, "Segoe UI", Helvetica, Arial;
-    font-weight: 500;
-    color: #111;
-  }
-  #textareaKeyCode {
-    border: 1px solid #bbb;
-    font-size: 14px;
-    font-family: monospace;
-    padding: .5em;
-    line-height: 1.25;
-  }
-  </style>
+  <link rel="stylesheet" href="css/pages.css">
 </head>
-<body>
+<body class="aesr-article">
   <h1>Supporters Program</h1>
 
   <p>
@@ -84,8 +45,8 @@
       I post your company logo on particular pages if your organization is a company and joins above a certain tier ($75 a month) of GitHub Sponsors.
     </p>
     <div class="buttons">
-      <a class="sponsorButton" title="Sponsor @tilfinltd" target="_blank" rel="noopener" href="https://github.com/sponsors/tilfinltd">GitHub Sponsor</a>
-      <span style="color:#a00; font-size: small; margin-left: 2em">
+      <a class="aesr-btn aesr-btn--normal" title="Sponsor @tilfinltd" target="_blank" rel="noopener" href="https://github.com/sponsors/tilfinltd">GitHub Sponsor</a>
+      <span class="aesr-label-error">
         I do not accept support from individuals.
       </span>
     </div>
@@ -102,9 +63,9 @@
   <section>
     <h2>Registration AESR Golden Key code</h2>
     <p>Paste your key code in the below box.</p>
-    <div style="display: flex">
-      <textarea id="textareaKeyCode" spellcheck="false" style="width: 62ex; height: 27em"></textarea>
-      <div style="margin-left: 20px">
+    <div class="aesr-key-row">
+      <textarea id="textareaKeyCode" spellcheck="false"></textarea>
+      <div class="aesr-key-status">
         <p id="keyCodeValid" style="display: none">The key code has been registered ✅.<br>Thank you for your support.</p>
         <p id="keyCodeInvalid" style="display: none">The key code is invalid ❌.</p>
       </div>
