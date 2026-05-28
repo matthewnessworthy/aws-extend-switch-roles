@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
-| 3. Options & Auxiliary Surfaces | 3/3 | Complete   | 2026-05-28 |
+| 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
