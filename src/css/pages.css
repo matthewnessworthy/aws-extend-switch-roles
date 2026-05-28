@@ -1,0 +1,103 @@
+/* pages.css — Aux-page styles for AESR (Phase 3: supporters, credits, updated).
+   All classes use the .aesr-* prefix convention (locked in Phase 1).
+   All color/size values use var(--token) — no hardcoded hex, no hardcoded px for
+   dimensions that have a token. No @import, no !important, no color-mix(), no external
+   font or icon URL. */
+
+/* ==========================================================================
+   1. Article container
+   ========================================================================== */
+
+.aesr-article {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: var(--space-m) var(--space-xxl);
+	background-color: var(--color-bg-layout);
+	color: var(--color-text-body);
+	font-size: var(--font-size-body-m);
+	line-height: 1.75; /* intentional exception — document reading rhythm */
+}
+
+.aesr-article section {
+	margin-block: var(--space-xxl) 0;
+}
+
+.aesr-article p,
+.aesr-article li {
+	margin-block: var(--space-xxs) 0;
+}
+
+/* ==========================================================================
+   2. Scoped code (must be scoped under .aesr-article — not bare `code`)
+   ========================================================================== */
+
+.aesr-article code {
+	font-family: var(--font-family-mono);
+	color: var(--color-text-heading);
+	font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   3. Pre block (.aesr-pre shared shell is authored in components.css)
+      Apply the .aesr-pre class to <pre> blocks in HTML; no redeclaration here.
+   ========================================================================== */
+
+/* ==========================================================================
+   4. Blockquote (scoped under .aesr-article)
+   ========================================================================== */
+
+.aesr-article blockquote {
+	border: 1px solid var(--color-border-divider);
+	border-radius: var(--radius-input);
+	white-space: pre-line;
+	width: 22em;
+	padding: var(--space-xxs) var(--space-xs);
+	margin: var(--space-m) var(--space-xxl);
+}
+
+/* ==========================================================================
+   5. Accent heading (scoped under .aesr-article)
+   ========================================================================== */
+
+.aesr-article .aesr-heading-accent {
+	color: var(--color-text-accent);
+}
+
+/* ==========================================================================
+   6. Golden Key textarea
+   ========================================================================== */
+
+#textareaKeyCode {
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-body-m);
+	width: 62ex;
+	height: 27em;
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-input);
+	padding: var(--space-xs);
+	background-color: var(--color-bg-input);
+	color: var(--color-text-body);
+	line-height: var(--line-height-body-m);
+}
+
+/* ==========================================================================
+   7. Supporters page layout helpers
+   ========================================================================== */
+
+/* Flex wrapper for key-code row (replaces style="display: flex") */
+.aesr-key-row {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-m);
+}
+
+/* Status div margin (replaces style="margin-left: 20px") */
+.aesr-key-status {
+	margin-left: var(--space-l);
+}
+
+/* Error label (replaces inline color/font-size span on sponsor warning) */
+.aesr-label-error {
+	color: var(--color-text-status-error);
+	font-size: var(--font-size-body-s);
+}
