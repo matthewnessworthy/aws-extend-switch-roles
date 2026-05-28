@@ -6,141 +6,15 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
-<style>
-* { box-sizing: border-box }
-html { padding: 0 }
-body {
-  background-color: #fff;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Arial, Meiryo, sans-serif;
-  max-width: 600px;
-  max-height: 600px;
-}
-.optionMenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.optionMenu li {
-  padding: 0;
-  margin: 0;
-  border-bottom: 1px solid #ccc;
-}
-.optionMenu a {
-  color: #000;
-  display: block;
-  font-size: 13px;
-  line-height: 2;
-  margin: 2px;
-  padding: 2px 14px;
-  text-decoration: none;
-  width: 9em;
-}
-a:hover { background-color: #e8fafa }
-#openOptionsLink { font-weight: bold }
-
-.mainPane {
-  border-right: 1px solid #ddd;
-  padding-left: 10px;
-  margin-right: 4px;
-  padding-right: 10px;
-}
-#main {
-  font-size: 15px;
-  padding-bottom: 5px;
-}
-#roleList {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-  max-height: 516px;
-  scrollbar-width: thin;
-}
-#roleList li {
-  padding: 0;
-  margin: 4px 10px 4px 2px;
-  list-style: none;
-  white-space: nowrap;
-  vertical-align: middle;
-}
-#roleList li.selected { background-color: #f0f9ff }
-#roleList li a {
-  color: #000;
-  font-family: Arial;
-  cursor: pointer;
-  display: block;
-  line-height: 29px;
-  text-decoration: none;
-}
-#roleList li a > * {
-  vertical-align: top;
-}
-.headSquare {
-  background-size: contain;
-  display: inline-block;
-  margin: 5px 8px 5px 5px;
-  width: 20px;
-  height: 20px;
-}
-.suffixAccountId {
-  color: #666;
-  font-size: 95%;
-  font-weight: normal;
-  margin-left: 1.25em;
-}
-#noMain p {
-  font-size: 12px;
-  margin: 12px 5px 5px 5px;
-  line-height: 1.66;
-  color: #666;
-  white-space: pre-wrap;
-}
-#supportComment p {
-  line-height: 1.25;
-  margin: .5em 0;
-  font-weight: bold;
-}
-.roleListTitle {
-  color: #2c2c2c; 
-}
-.darkMode {
-  background-color: #2a2e33; 
-  color: #d3d9d9;
-}
-.darkMode a:hover { background-color: #153247 }
-.darkMode #noMain p { color: #eaeded }
-.darkMode #roleList a { color: #fff }
-.darkMode #roleList li.selected { background-color: #143846 }
-.darkMode #roleList .suffixAccountId { color: #95a5a6 }
-.darkMode .mainPane { border-color: #41474F }
-.darkMode .optionMenu li { border-color: #41474F }
-.darkMode .optionMenu a { color: #d5dbdb }
-.darkMode #roleFilter {
-  background-color: #1a2029;
-  color: #d5dbdb;
-  border-color: #879596;
-}
-.darkMode .roleListTitle { color: #eaeded }
-.darkMode #roleList::-webkit-scrollbar {
-  width: 10px;
-}
-.darkMode #roleList::-webkit-scrollbar-track {
-  background-color: #3b3b3b;
-}
-.darkMode #roleList::-webkit-scrollbar-thumb {
-  background-color: #616161;
-}
-</style>
+<link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
-<div style="display: flex">
-  <div class="mainPane" style="min-width: 280px">
+<div>
+  <div class="mainPane">
     <div id="main" style="display: none">
-      <div style="padding: 12px 6px 6px;">
+      <div class="aesr-popup-filter-row">
         <span class="roleListTitle">Role List</span>
-        <input id="roleFilter" type="text" placeholder="Filter"
-          style="border:1px solid #bbb;border-radius:3px;font-size:13px;margin-left:0.4em;max-width:30ex;padding:.8ex">
+        <input id="roleFilter" class="aesr-input" type="text" placeholder="Filter">
       </div>
       <ul id="roleList">
       </ul>
@@ -152,7 +26,7 @@ a:hover { background-color: #e8fafa }
   <div>
     <ul class="optionMenu">
       <li><a href="#" id="openOptionsLink">Configuration</a></li>
-      <li><a href="#" id="openUpdateNoticeLink">Update Notice</a></li>
+      <li class="aesr-nav-group-break"><a href="#" id="openUpdateNoticeLink">Update Notice</a></li>
       <li><a
           href="https://github.com/tilfinltd/aws-extend-switch-roles/blob/master/CHANGELOG.md#changelog" rel="noopener noreferrer" target="_blank">Release Notes</a></li>
       <li><a href="#" id="openCreditsLink">Credits</a></li>
@@ -160,12 +34,12 @@ a:hover { background-color: #e8fafa }
       <li><a href="https://github.com/tilfinltd/aws-extend-switch-roles" rel="noopener noreferrer"
               target="_blank">Website</a></li>
     </ul>
-    <div style="margin: 5px">
-      <div id="supportComment" style="display: none; margin: 6px">
+    <div>
+      <div id="supportComment" style="display: none">
         <p>Is this helpful?</p>
         <p>Could you <a href="#" id="openSupportMe" style="text-decoration: none">support me</a>? &#x1f97a;</p>
       </div>
-      <img id="goldenkey" style="display: none; margin: 6px 8px 6px auto" title="Thank you for your support." src="/icons/golden_icon.png" width="44" height="44">
+      <img id="goldenkey" style="display: none" title="Thank you for your support." src="/icons/golden_icon.png" width="44" height="44">
     </div>
   </div>
 </div>
