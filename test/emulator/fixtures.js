@@ -93,6 +93,14 @@ export const testInSupporters = (message, pageFunc) => {
   });
 };
 
+export const testInPreview = (message, pageFunc) => {
+  test(message, async ({ page, context, extensionId }) => {
+    await page.goto(`chrome-extension://${extensionId}/preview/index.html`);
+    const resultP = await pageFunc({ page, expect: test.expect });
+    if (resultP !== undefined) console.log(resultP);
+  });
+};
+
 export const testInWorker = (message, workerFunc) => {
   test(message, async ({ page, context, extensionId }) => {
     const [worker] = context.serviceWorkers();
