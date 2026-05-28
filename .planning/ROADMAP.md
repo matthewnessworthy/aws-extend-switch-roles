@@ -22,7 +22,7 @@ These are deferred to the UI-phase / planning of the relevant phase. Recommended
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design System Foundation** - Token system, pre-paint theming engine, and build/plumbing — the gate everything inherits from (completed 2026-05-28)
-- [ ] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600
+- [x] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600 (completed 2026-05-28)
 - [ ] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages
 - [ ] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode
 - [ ] **Phase 5: Accessibility, Cross-Browser & Release Audit** - Final WCAG 2.1 AA audit, Firefox/Edge smoke, and store/release prep
@@ -72,9 +72,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 **Wave 1** *(all parallel — no file overlap)*
 
-- [ ] 02-01-PLAN.md — Wave 1: popup.css (new) + popup.html update (remove inline style block, link popup.css, strip filter inline style, add sidebar break)
-- [ ] 02-02-PLAN.md — Wave 1: create_role_list_item.js two-line DOM (D-02) + test assertions updated
-- [ ] 02-03-PLAN.md — Wave 1: popup.js typed state renderers (D-05/D-06/D-07) + darkMode removal + loading state
+- [x] 02-01-PLAN.md — Wave 1: popup.css (new) + popup.html update (remove inline style block, link popup.css, strip filter inline style, add sidebar break)
+- [x] 02-02-PLAN.md — Wave 1: create_role_list_item.js two-line DOM (D-02) + test assertions updated
+- [x] 02-03-PLAN.md — Wave 1: popup.js typed state renderers (D-05/D-06/D-07) + darkMode removal + loading state
 
 **UI hint**: yes
 
@@ -91,7 +91,16 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. All `<label for>` associations and ARIA roles/names are preserved, every interactive element is **focus-visible** in both themes, AA contrast is met in both themes, and the Firefox-unsupported tab-grouping control remains disabled (not rendered as enabled).
   5. `npm test` + `npm run test_emulator` pass — or the relevant specs (`options.spec.js`, `supporters.spec.js`, IDs like `#awsConfigTextArea`/`#saveButton`/`#msgSpan`/`#configStorage*RadioButton`/`#textareaKeyCode`) are updated deliberately in the same PR; nothing routes through `lib/content.js` / `lib/auto_assume_last_role.js`.
 
-**Plans**: TBD
+**Plans**: 3 plans
+**Wave 1**
+
+- [ ] 03-01-PLAN.md — Wave 1: Token gap fix (--color-bg-button-primary-hover dark layers) + components.css alert variants
+
+**Wave 2** *(blocked on Wave 1 completion; Plans 02 and 03 run in parallel)*
+
+- [ ] 03-02-PLAN.md — Wave 2: options.css (new) + options.html wiring + options.js updateMessage()/darkMode refactor
+- [ ] 03-03-PLAN.md — Wave 2: pages.css (new) + supporters/credits/updated HTML wiring
+
 **UI hint**: yes
 
 ### Phase 4: Theme Toggle & Per-Profile Color
@@ -133,7 +142,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
-| 2. Popup Surface | 0/3 | Not started | - |
-| 3. Options & Auxiliary Surfaces | 0/TBD | Not started | - |
+| 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
+| 3. Options & Auxiliary Surfaces | 0/3 | Not started | - |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
