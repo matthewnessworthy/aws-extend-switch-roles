@@ -38,8 +38,7 @@ describe('createRoleListItem', () => {
       expect(a.dataset.color).to.eq('aaaaaa');
       expect(a.dataset.redirecturi).to.eq('https%3A%2F%2Fconsole.aws.amazonaws.com%2F');
       expect(a.dataset.search).to.eq('profilea 222233334444');
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> \
-</span>profileA<span class="suffixAccountId">222233334444</span>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">profileA</span><span class="aesr-role-item__account">222233334444</span></div>`);
 
       a.click();
       expect(handlerData).to.deep.eq({
@@ -74,8 +73,7 @@ describe('createRoleListItem', () => {
       expect(a.dataset.color).to.eq('ffaa99');
       expect(a.dataset.redirecturi).to.eq('https%3A%2F%2Fconsole.aws.amazonaws.com%2F%3Fregion%3Dus-east-1');
       expect(a.dataset.search).to.eq('profile-b 000011115555');
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(255, 170, 153);"> \
-</span>profile-b<span class="suffixAccountId">000011115555</span>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(255, 170, 153);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">profile-b</span><span class="aesr-role-item__account">000011115555</span></div>`);
     });
   });
 
@@ -91,8 +89,7 @@ describe('createRoleListItem', () => {
       const li = createRoleListItem(window.document, item, url, 'us-east-1', {}, (sender, data) => {});
 
       const a = li.querySelector('a')
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="\
-background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span>prf<span class="suffixAccountId">333344441111</span>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">prf</span><span class="aesr-role-item__account">333344441111</span></div>`);
     });
   });
 
@@ -109,8 +106,7 @@ background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span>pr
       const li = createRoleListItem(window.document, item, url, 'us-east-1', {}, (sender, data) => {});
 
       const a = li.querySelector('a')
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(255, 170, 34); \
-background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span>prf<span class="suffixAccountId">333344441111</span>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(255, 170, 34); background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">prf</span><span class="aesr-role-item__account">333344441111</span></div>`);
     });
   });
 
@@ -166,7 +162,7 @@ background-image: url(&quot;https://www.exapmle.com/icon.png&quot;);"> </span>pr
       expect(a.dataset.displayname).to.eq('ProfileC');
       expect(a.dataset.redirecturi).to.eq('https%3A%2F%2Fconsole.aws.amazonaws.com%2F%3Fregion%3Dus-east-1');
       expect(a.dataset.search).to.eq('profilec 000011117777');
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> </span>ProfileC`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">ProfileC</span></div>`);
     });
   });
 });
