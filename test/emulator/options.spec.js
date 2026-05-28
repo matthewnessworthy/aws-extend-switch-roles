@@ -1,3 +1,4 @@
+// D-02 audit (Phase 1): no body-font/margin/box-sizing assertions found — no changes needed
 import { testInOptions } from './fixtures.js';
 
 testInOptions("change and save configuration",
