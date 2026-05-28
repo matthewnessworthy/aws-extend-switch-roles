@@ -21,7 +21,7 @@ These are deferred to the UI-phase / planning of the relevant phase. Recommended
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Design System Foundation** - Token system, pre-paint theming engine, and build/plumbing — the gate everything inherits from
+- [x] **Phase 1: Design System Foundation** - Token system, pre-paint theming engine, and build/plumbing — the gate everything inherits from (completed 2026-05-28)
 - [ ] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600
 - [ ] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages
 - [ ] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode
@@ -51,8 +51,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-04-PLAN.md — Wave 2: HTML <head> wiring on all 5 pages + D-02 spec audit
-- [ ] 01-05-PLAN.md — Wave 2: Build pipeline (bin/build.sh, bin/build_test.sh) + smoke test
+- [x] 01-04-PLAN.md — Wave 2: HTML <head> wiring on all 5 pages + D-02 spec audit
+- [x] 01-05-PLAN.md — Wave 2: Build pipeline (bin/build.sh, bin/build_test.sh) + smoke test
 
 **UI hint**: yes
 
@@ -126,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System Foundation | 3/5 | In Progress|  |
+| 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 0/TBD | Not started | - |
 | 3. Options & Auxiliary Surfaces | 0/TBD | Not started | - |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
