@@ -1,0 +1,110 @@
+/* D-02: base.css resets apply to all 5 pages as of Phase 1.
+   popup.html inline <style> (source-order after <link>) wins for equal specificity —
+   popup body renders identically (except the :focus-visible ring).
+   options/credits/updated gain system-font stack in Phase 1 (expected delta, not regression).
+   Inline <style> blocks removed per-surface in Phases 2-3. */
+
+/* ==========================================================================
+   1. Universal box-sizing
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. Root / body reset and system-font typography
+   ========================================================================== */
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-body-m);
+	line-height: var(--line-height-body-m);
+	font-weight: var(--font-weight-normal);
+	color: var(--color-text-body);
+	background-color: var(--color-bg-layout);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   3. Heading defaults
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	font-weight: var(--font-weight-bold);
+	color: var(--color-text-heading);
+	line-height: var(--line-height-heading-s);
+}
+
+h1 {
+	font-size: var(--font-size-heading-l);
+	line-height: var(--line-height-heading-l);
+}
+
+h2,
+h3 {
+	font-size: var(--font-size-heading-s);
+}
+
+/* ==========================================================================
+   4. Paragraph / list reset
+   ========================================================================== */
+
+p {
+	margin: 0;
+}
+
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* ==========================================================================
+   5. Link base
+   ========================================================================== */
+
+a {
+	color: var(--color-link);
+	text-decoration: underline;
+}
+
+a:hover {
+	color: var(--color-link-hover);
+}
+
+/* ==========================================================================
+   6. Tokenized :focus-visible ring (UI-SPEC §4 — the Phase-1 a11y contract)
+   Must not be weakened by surface phases (T-1-03-02 — A11Y-01).
+   ========================================================================== */
+
+:focus-visible {
+	outline: 2px solid var(--color-border-focus);
+	outline-offset: 2px;
+	border-radius: var(--radius-focus-ring);
+}
+
+/* ==========================================================================
+   7. Scrollbar — rely on color-scheme (THM-05) for native theming;
+   scrollbar-width: thin for Firefox / Edge consistency.
+   ========================================================================== */
+
+* {
+	scrollbar-width: thin;
+}
