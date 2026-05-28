@@ -115,7 +115,16 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Theme choice follows the user across devices; on load, cross-device drift between the sync canonical value and the `localStorage` cache **reconciles with at most one repaint**.
   4. The per-profile `color` × dark-mode rendering rule (Open Design Decision #1) is implemented **at render only** — the stored hex is never mutated and the console-header path is never touched; the swatch/preview renders acceptably in both themes (verified AA in Phase 5).
 
-**Plans**: TBD
+**Plans**: 3 plans
+**Wave 1**
+
+- [ ] 04-01-PLAN.md — Wave 1: src/js/lib/theme.js helper + unit tests + Playwright visual_mode.spec.js
+
+**Wave 2** *(blocked on Wave 1 completion; Plans 02 and 03 run in parallel)*
+
+- [ ] 04-02-PLAN.md — Wave 2: options.js write-through + post-load reconcile + listener
+- [ ] 04-03-PLAN.md — Wave 2: popup.js post-load reconcile + listener + SC#4 human verify
+
 **UI hint**: yes
 
 ### Phase 5: Accessibility, Cross-Browser & Release Audit
@@ -144,5 +153,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
-| 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
+| 4. Theme Toggle & Per-Profile Color | 0/3 | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
