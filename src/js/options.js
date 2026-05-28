@@ -191,11 +191,6 @@ window.onload = function() {
   elById('defaultVisualRadioButton').onchange = elById('lightVisualRadioButton').onchange = elById('darkVisualRadioButton').onchange = function() {
     const visualMode = this.value;
     syncStorageRepo.set({ visualMode });
-    if (visualMode === 'dark' || (visualMode === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.body.classList.add('darkMode');
-    } else {
-      document.body.classList.remove('darkMode');
-    }
   }
 
   syncStorageRepo.get(['configSenderId', 'configStorageArea', 'visualMode'].concat(booleanSettings))
@@ -217,9 +212,6 @@ window.onload = function() {
 
     const visualMode = data.visualMode || 'default'
     elById(visualMode + 'VisualRadioButton').checked = true;
-    if (visualMode === 'dark' || (visualMode === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.body.classList.add('darkMode');
-    }
 
     loadConfigIni(StorageProvider.getRepositoryByKind(configStorageArea)).then(cfgText => {
       textArea.value = cfgText || '';
@@ -246,20 +238,18 @@ async function saveConfiguration(text, storageArea) {
 
 function updateMessage(elId, msg, cls = 'success') {
   const el = elById(elId);
-  const span = document.createElement('span');
-  span.className = cls;
-  span.textContent = msg;
-  const child = el.firstChild;
-  if (child) {
-    el.replaceChild(span, child);
-  } else {
-    el.appendChild(span);
-  }
+  const modifierMap = { success: 'aesr-alert--success', warn: 'aesr-alert--warning' };
+  const modifier = modifierMap[cls] || 'aesr-alert--error';
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `aesr-alert ${modifier}`;
+  const body = document.createElement('p');
+  body.className = 'aesr-alert__body';
+  body.textContent = msg;   // textContent only — msg may contain parser error text or server-influenced content
+  alertDiv.appendChild(body);
+  el.replaceChildren(alertDiv);
 
   if (cls === 'success') {
-    setTimeout(() => {
-      span.remove();
-    }, 2500);
+    setTimeout(() => { alertDiv.remove(); }, 2500);
   }
 }
 

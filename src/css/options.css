@@ -1,0 +1,178 @@
+/* options.css — Options-page styles for AESR (Phase 3).
+   All classes use the .aesr-* prefix convention (locked in Phase 1).
+   All color/size values use var(--token) — no hardcoded hex, no hardcoded px for
+   dimensions that have a token. No @import, no !important, no color-mix(), no external
+   font or icon URL. */
+
+/* === 1. Body layout === */
+
+body {
+	display: flex;
+	flex-direction: row;
+	background-color: var(--color-bg-input-disabled);
+}
+
+/* === 2. Pane scaffold === */
+
+.aesr-options-pane {
+	box-sizing: border-box;
+	height: 100vh;
+	overflow-y: auto;
+	padding: var(--space-m) var(--space-xxl);
+	background-color: var(--color-bg-layout);
+}
+
+#settingPane {
+	max-width: 660px;
+	width: 100%;
+	min-width: 320px;
+	border-right: 1px solid var(--color-border-divider);
+}
+
+#howto {
+	flex: 1;
+	min-width: 280px;
+	background-color: var(--color-bg-input-disabled);
+	padding-bottom: var(--space-xxl);
+}
+
+/* === 3. Section heads === */
+
+.aesr-section-head {
+	margin-block: var(--space-s) var(--space-xs);
+}
+
+/* === 4. Form row === */
+
+.aesr-form-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	min-height: 32px;
+}
+
+.aesr-form-row label {
+	display: inline-block;
+	min-width: 7em;
+	color: var(--color-text-label);
+	font-weight: var(--font-weight-normal);
+}
+
+/* === 5. Settings list === */
+
+.aesr-settings-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xxs);
+}
+
+.aesr-settings-list li {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	min-height: 26px;
+	color: var(--color-text-body);
+	font-size: var(--font-size-body-m);
+}
+
+/* === 6. Storage selector row === */
+
+.aesr-storage-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-xs);
+	flex-wrap: wrap;
+}
+
+.aesr-storage-row label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xxs);
+}
+
+/* === 7. Color picker pair === */
+
+.aesr-color-pair {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+}
+
+#colorPicker {
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-badge);
+	cursor: pointer;
+	padding: 0;
+	height: 24px;
+	width: 32px;
+}
+
+#colorValue {
+	font-family: var(--font-family-mono);
+	width: 9ex;
+}
+
+/* === 8. INI editor overrides (additions on top of .aesr-textarea from components.css) === */
+
+#awsConfigTextArea {
+	min-height: 320px;
+	max-height: calc(100vh - 320px);
+	white-space: pre;
+	margin: var(--space-xs) 0;
+	resize: vertical;
+}
+
+/* === 9. Scoped code/pre (must be scoped — not bare code/pre which would leak to popup) === */
+
+.aesr-options-pane code {
+	font-family: var(--font-family-mono);
+	color: var(--color-text-heading);
+	font-weight: var(--font-weight-bold);
+}
+
+.aesr-pre {
+	box-sizing: border-box;
+	background-color: var(--color-bg-input-disabled);
+	border: 1px solid var(--color-border-divider);
+	border-radius: var(--radius-input);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-body-m);
+	line-height: var(--line-height-body-m);
+	padding: var(--space-xs);
+	overflow-x: auto;
+	white-space: pre;
+}
+
+/* === 10. Inline style migrations (moved from HTML attributes) === */
+
+#msgSpan {
+	margin-left: var(--space-xs);
+}
+
+#remoteMsgSpan {
+	margin-left: var(--space-xs);
+}
+
+#switchConfigHubButton {
+	margin-left: auto;
+}
+
+#configHubDomain {
+	width: 15ex;
+}
+
+#configHubClientId {
+	width: 40ex;
+}
+
+#configSenderIdText {
+	width: 48ex;
+}
+
+.aesr-save-row {
+	margin-top: var(--space-s);
+}

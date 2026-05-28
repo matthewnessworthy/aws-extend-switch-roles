@@ -7,206 +7,77 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/options.css">
 <script type="module" src="js/options.js"></script>
-<style>
-html { padding: 0 }
-body {
-  background-color: #666;
-  font-size: 14px;
-  line-height: 1.25;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-}
-h1 { font-size: 22px; margin-block: 14px 10px }
-h2 { font-size: 17px; margin-block: 14px }
-h3 { font-size: 15px; margin-block: 8px }
-section { margin-block: 10px 20px }
-.pane {
-  box-sizing: border-box;
-  height: 100vh;
-  max-width: 660px;
-  width: 100%;
-  padding-inline: 20px;
-}
-#settingPane {
-  background-color: #fff;
-  color: #000;
-}
-#howto {
-  background-color: #eee;
-  color: #444;
-  overflow-y: scroll;
-  padding-bottom: 25px;
-}
-#howto p {
-  line-height: 1.6;
-}
-#howto li {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
-  line-height: 1.5;
-}
-a { text-decoration: none }
-.head {
-  font-size: 13px;
-  font-weight: bold;
-  margin: 5px 0;
-}
-#settings ul {
-  list-style: none;
-  margin: 0 0; padding: 0;
-}
-#settings ul li {
-  margin: 0;
-  padding: 0;
-  line-height: 26px;
-}
-input[type="checkbox"], 
-input[type="radio"] {
-  position: relative;
-  top: 2px;
-  margin-right: .33ex;
-}
-#awsConfigTextArea {
-  box-sizing: border-box;
-  font-size: 14px;
-  font-family: Consolas, "Courier New", Courier, Monaco, monospace;
-  padding: 0.5ex;
-  resize: none;
-  white-space: pre;
-  width: 100%;
-  height: calc(100vh - 456px);
-  margin: 8px 0;
-  max-height: 800px;
-}
-#colorValue {
-  font-family: monospace;
-  width: 9ex;
-}
-pre {
-  border: 1px solid #484848;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-family: Consolas, "Courier New", Courier, Monaco, monospace;
-  padding: 0.5ex;
-  overflow-x: hidden;
-}
-input, button {
-  font-size: 14px;
-  padding-block: 3px;
-}
-code {
-  color: #222;
-  font-weight: bold;
-}
-.success, #msgSpan, a { color: #1c1cff }
-.warn { color: #de1010 }
-.darkMode .success, .darkMode #msgSpan, .darkMode a { color: #2aedff }
-.darkMode .warn { color: #e82828 }
-.darkMode #settingPane {
-  background-color: #333;
-  color: #fff;
-}
-.darkMode #howto {
-  background-color: #444;
-  color: #bbb;
-}
-.darkMode code { color: #ddd }
-.darkMode pre { border-color: #979797 }
-.darkMode textarea, .darkMode input[type="text"] {
-  background-color: #222;
-  border-color: #9d9d9d;
-  color: #eee;
-}
-.formItem {
-  line-height: 32px;
-}
-.formItem label {
-  display: inline-block;
-  min-width: 4em;
-  padding-right: 1ex;
-}
-.radioGroup {
-  display: flex;
-  flex-direction: row;
-  line-height: 26px;
-}
-.radioGroup label {
-  margin-left: .5ex;
-  margin-right: 1ex;
-}
-</style>
 </head>
 <body>
-<div class="pane" id="settingPane">
+<div class="aesr-options-pane" id="settingPane">
  <h1>Configuration</h1>
  <section id="standalonePanel">
   <div id="storageDiv">
-   <div class="radioGroup">
+   <div class="aesr-storage-row">
     <span>Storage:</span>
-    <label for="configStorageSyncRadioButton"><input type="radio" name="configStorage" id="configStorageSyncRadioButton" value="sync">Sync</label>
-    <label for="configStorageLocalRadioButton"><input type="radio" name="configStorage" id="configStorageLocalRadioButton" value="local">Local</label>
-    <button id="switchConfigHubButton" style="margin-left: auto;">Switch into fetching from Config Hub</button>
+    <label for="configStorageSyncRadioButton"><input type="radio" class="aesr-radio" name="configStorage" id="configStorageSyncRadioButton" value="sync">Sync</label>
+    <label for="configStorageLocalRadioButton"><input type="radio" class="aesr-radio" name="configStorage" id="configStorageLocalRadioButton" value="local">Local</label>
+    <button id="switchConfigHubButton" class="aesr-btn aesr-btn--normal">Switch into fetching from Config Hub</button>
    </div>
   </div>
-  <textarea id="awsConfigTextArea" spellcheck="false"></textarea>
-  <div>
+  <textarea id="awsConfigTextArea" class="aesr-textarea" spellcheck="false"></textarea>
+  <div class="aesr-color-pair">
    <input type="color" id="colorPicker">
-   <b style="margin-left: 6px">#</b>
-   <input type="text" id="colorValue" maxlength="6" placeholder="RRGGBB">
-   <a style="float:right" target="_blank" rel="noopener noreferrer"
+   <b>#</b>
+   <input type="text" class="aesr-input" id="colorValue" maxlength="6" placeholder="RRGGBB">
+   <a target="_blank" rel="noopener noreferrer"
       href="http://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html">About ~/.aws/config file</a>
   </div>
-  <div style="margin-top:12px">
-   <button id="saveButton">&nbsp; Save &nbsp;</button>
-   <span id="msgSpan" style="margin-left:12px"></span>
+  <div class="aesr-save-row">
+   <button id="saveButton" class="aesr-btn aesr-btn--primary">Save Configuration</button>
+   <div id="msgSpan"></div>
   </div>
  </section>
  <section id="configHubPanel" style="display: none">
   <h2>Config Hub settings</h2>
-  <div class="formItem">
+  <div class="aesr-form-row">
     <label for="configHubDomain">Domain:</label>
-    <input id="configHubDomain" type="text" maxlength="40" style="width: 15ex">.aesr.dev
+    <input id="configHubDomain" type="text" class="aesr-input" maxlength="40">.aesr.dev
   </div>
-  <div class="formItem">
+  <div class="aesr-form-row">
     <label for="configHubClientId">Client ID:</label>
-    <input id="configHubClientId" type="text" maxlength="40" style="width: 40ex">
+    <input id="configHubClientId" type="text" class="aesr-input" maxlength="40">
   </div>
-  <div style="margin-top:12px">
-   <button id="cancelConfigHubButton">Cancel</button>
-   <button id="connectConfigHubButton">Connect Config Hub</button>
-   <button id="disconnectConfigHubButton">Disconnect</button>
-   <button id="reloadConfigHubButton">Reload config from Hub</button>
-   <span id="remoteMsgSpan" style="margin-left:12px"></span>
+  <div class="aesr-save-row">
+   <button id="cancelConfigHubButton" class="aesr-btn aesr-btn--normal">Cancel</button>
+   <button id="connectConfigHubButton" class="aesr-btn aesr-btn--normal">Connect Config Hub</button>
+   <button id="disconnectConfigHubButton" class="aesr-btn aesr-btn--normal">Disconnect</button>
+   <button id="reloadConfigHubButton" class="aesr-btn aesr-btn--normal">Reload config from Hub</button>
+   <div id="remoteMsgSpan"></div>
   </div>
  </section>
  <section id="settings">
-  <h1>Settings</h1>
-  <ul>
-    <li><label for="hidesAccountIdCheckBox"><input type="checkbox" id="hidesAccountIdCheckBox">Hide account id</label></li>
-    <li><label for="showOnlyMatchingRolesCheckBox"><input type="checkbox" id="showOnlyMatchingRolesCheckBox">Show only matching roles</label></li>
-    <li><label for="autoTabGroupingCheckBox"><input type="checkbox" id="autoTabGroupingCheckBox">Automatic tab grouping for multi-Session</label> (Experimental, Supporters only) </li>
-    <li><label for="signinEndpointInHereCheckBox"><input type="checkbox" id="signinEndpointInHereCheckBox">Sign-in endpoint in current region</label> (Experimental, Supporters only) </li>
-    <li><s><label for="autoAssumeLastRoleCheckBox"><input type="checkbox" id="autoAssumeLastRoleCheckBox">Automatically assume last assumed role</label> (Experimental) </s> (temporarily disabled) </li>
-    <li class="radioGroup">
+  <h2 class="aesr-section-head">Settings</h2>
+  <ul class="aesr-settings-list">
+    <li><label for="hidesAccountIdCheckBox"><input type="checkbox" class="aesr-checkbox" id="hidesAccountIdCheckBox">Hide account id</label></li>
+    <li><label for="showOnlyMatchingRolesCheckBox"><input type="checkbox" class="aesr-checkbox" id="showOnlyMatchingRolesCheckBox">Show only matching roles</label></li>
+    <li><label for="autoTabGroupingCheckBox"><input type="checkbox" class="aesr-checkbox" id="autoTabGroupingCheckBox">Automatic tab grouping for multi-Session</label> (Experimental, Supporters only) </li>
+    <li><label for="signinEndpointInHereCheckBox"><input type="checkbox" class="aesr-checkbox" id="signinEndpointInHereCheckBox">Sign-in endpoint in current region</label> (Experimental, Supporters only) </li>
+    <li><s><label for="autoAssumeLastRoleCheckBox"><input type="checkbox" class="aesr-checkbox" id="autoAssumeLastRoleCheckBox">Automatically assume last assumed role</label> (Experimental) </s> (temporarily disabled) </li>
+    <li class="aesr-storage-row">
       <span>Visual mode:</span>
-      <label for="defaultVisualRadioButton"><input type="radio" name="visual" id="defaultVisualRadioButton" value="default">Browser default</label>
-      <label for="lightVisualRadioButton"><input type="radio" name="visual" id="lightVisualRadioButton" value="light">Light</label>
-      <label for="darkVisualRadioButton"><input type="radio" name="visual" id="darkVisualRadioButton" value="dark">Dark</label>
+      <label for="defaultVisualRadioButton"><input type="radio" class="aesr-radio" name="visual" id="defaultVisualRadioButton" value="default">Browser default</label>
+      <label for="lightVisualRadioButton"><input type="radio" class="aesr-radio" name="visual" id="lightVisualRadioButton" value="light">Light</label>
+      <label for="darkVisualRadioButton"><input type="radio" class="aesr-radio" name="visual" id="darkVisualRadioButton" value="dark">Dark</label>
     </li>
   </ul>
  </section>
  <section id="api">
-  <h1>Extension API</h1>
-  <div class="formItem">
+  <h2 class="aesr-section-head">Extension API</h2>
+  <div class="aesr-form-row">
    <label for="configSenderIdText">Config sender extension ID:</label>
-   <input id="configSenderIdText" type="text" maxlength="48" style="width: 48ex">
+   <input id="configSenderIdText" type="text" class="aesr-input" maxlength="48">
   </div>
  </section>
 </div>
-<div class="pane" id="howto">
+<div class="aesr-options-pane" id="howto">
  <h1>How to configure</h1>
  <section>
   <h2>Simple Configuration</h2>
@@ -218,7 +89,7 @@ code {
    <li><code>region</code> - Changing the region whenever switching the role if this parameter is specified.</li>
    <li><code>image</code> - The uri of an image to use on top of any color attribute supplied. The color and image are not mutually exclusive.</li>
   </ul>
-  <pre>
+  <pre class="aesr-pre">
 [profile marketingadmin]
 role_arn = arn:aws:iam::123456789012:role/marketingadmin
 color = ffaaee
@@ -235,7 +106,7 @@ image = "https://aesr.dev/img/150"
   </pre>
  </section>
  <section>
-  <h2>Complex Configuration</h2>  
+  <h2>Complex Configuration</h2>
   <p>More complex configurations involve multiple AWS accounts and/or organizations.</p>
   <ul>
    <li>A profile specified by the <code>source_profile</code> of the others is defined as <b>base account</b></li>
@@ -248,7 +119,7 @@ image = "https://aesr.dev/img/150"
    <li>If <code>target_role_name</code> is set in <b>base account</b>, the value is provided as the default role name for each <b>target roles</b>.</li>
    <li>If <code>target_region</code> is set in <b>base account</b>, the value is provided as the default region for each <b>target roles</b>.</li>
   </ul>
-  <pre>
+  <pre class="aesr-pre">
 [organization1]
 aws_account_id = 000011112222
 aws_account_alias = your-account-alias
@@ -336,7 +207,7 @@ source_profile = Org3-BaseAccount2
   <h2>Extension API</h2>
   <ul>
    <li><b>Config sender extension</b> allowed by the <b>ID</b> can send your switch roles configuration to this extension.
-     <strong class="warn">'Configuration storage' forcibly becomes 'Local' when the configuration is received from a config sender.</strong>
+     <span style="color: var(--color-text-status-warning)">'Configuration storage' forcibly becomes 'Local' when the configuration is received from a config sender.</span>
      <a href="https://github.com/tilfinltd/aws-extend-switch-roles/wiki/External-API#config-sender-extension" target="_blank" rel="noopener noreferrer">See</a> how to make your config sender extension.</li>
   </ul>
  </section>
