@@ -1,0 +1,263 @@
+/* components.css — Reusable component shells (ROADMAP SC2).
+   All classes use the .aesr-* prefix (locked in Plan 01, Claude's Discretion decision).
+   All color/size values use var(--token) — no hardcoded hex, no hardcoded px for
+   dimensions that have a token. No @import, no !important, no color-mix(), no external
+   font or icon URL. */
+
+/* ==========================================================================
+   1. Button shells
+   ========================================================================== */
+
+.aesr-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-xxs) var(--space-l);
+	border-radius: var(--radius-button);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-body-m);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-body-m);
+	cursor: pointer;
+	border: 2px solid transparent;
+	text-decoration: none;
+}
+
+.aesr-btn--primary {
+	background-color: var(--color-bg-button-primary);
+	color: var(--color-bg-layout); /* white in light, dark-bg in dark — inverts with theme */
+	border-color: var(--color-bg-button-primary);
+}
+
+.aesr-btn--primary:hover {
+	background-color: var(--color-bg-button-primary-hover);
+	border-color: var(--color-bg-button-primary-hover);
+}
+
+.aesr-btn--normal {
+	background-color: transparent;
+	color: var(--color-text-body);
+	border-color: var(--color-border-divider);
+}
+
+.aesr-btn--normal:hover {
+	background-color: var(--color-bg-button-normal-hover);
+}
+
+/* ==========================================================================
+   2. Text input
+   ========================================================================== */
+
+.aesr-input {
+	display: block;
+	width: 100%;
+	padding: var(--space-xxs) var(--space-xs);
+	background-color: var(--color-bg-input);
+	color: var(--color-text-body);
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-input);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-body-m);
+	line-height: var(--line-height-body-m);
+}
+
+.aesr-input:disabled {
+	background-color: var(--color-bg-input-disabled);
+	color: var(--color-text-disabled);
+}
+
+/* ==========================================================================
+   3. Textarea
+   ========================================================================== */
+
+.aesr-textarea {
+	display: block;
+	width: 100%;
+	padding: var(--space-xxs) var(--space-xs);
+	background-color: var(--color-bg-input);
+	color: var(--color-text-body);
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-input);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-body-m);
+	line-height: var(--line-height-body-m);
+	resize: vertical;
+	min-height: 80px;
+}
+
+.aesr-textarea:disabled {
+	background-color: var(--color-bg-input-disabled);
+	color: var(--color-text-disabled);
+}
+
+/* ==========================================================================
+   4. Select
+   ========================================================================== */
+
+.aesr-select {
+	display: block;
+	width: 100%;
+	padding: var(--space-xxs) var(--space-xs);
+	background-color: var(--color-bg-input);
+	color: var(--color-text-body);
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-input);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-body-m);
+	line-height: var(--line-height-body-m);
+	appearance: auto;
+}
+
+.aesr-select:disabled {
+	background-color: var(--color-bg-input-disabled);
+	color: var(--color-text-disabled);
+}
+
+/* ==========================================================================
+   5. Checkbox and radio
+   ========================================================================== */
+
+.aesr-checkbox,
+.aesr-radio {
+	accent-color: var(--color-control-checked);
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+/* ==========================================================================
+   6. Role-list item shell
+   ========================================================================== */
+
+.aesr-role-item {
+	display: flex;
+	flex-direction: column;
+	padding: var(--space-xxs) var(--space-l);
+	background-color: var(--color-bg-dropdown-item);
+	border-bottom: 1px solid var(--color-border-divider-secondary);
+	cursor: pointer;
+}
+
+.aesr-role-item:hover {
+	background-color: var(--color-bg-dropdown-item-hover);
+}
+
+.aesr-role-item__account {
+	font-size: var(--font-size-body-s);
+	color: var(--color-text-secondary);
+}
+
+.aesr-role-item__name {
+	font-size: var(--font-size-body-m);
+	color: var(--color-text-body);
+}
+
+/* ==========================================================================
+   7. Pane / container shell
+   ========================================================================== */
+
+.aesr-pane {
+	background-color: var(--color-bg-container);
+	border-radius: var(--radius-container);
+	padding: var(--space-m);
+	box-shadow: var(--shadow-container);
+}
+
+/* ==========================================================================
+   8. Divider
+   ========================================================================== */
+
+.aesr-divider {
+	border: none;
+	border-top: 1px solid var(--color-border-divider);
+	margin: var(--space-xs) 0;
+}
+
+/* ==========================================================================
+   9. Empty-state container
+   ========================================================================== */
+
+.aesr-state-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-l);
+	gap: var(--space-m);
+	text-align: center;
+}
+
+.aesr-state-empty__heading {
+	font-size: var(--font-size-heading-s);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-heading-s);
+	color: var(--color-text-heading);
+}
+
+.aesr-state-empty__body {
+	font-size: var(--font-size-body-s);
+	line-height: var(--line-height-body-s);
+	color: var(--color-text-secondary);
+	white-space: pre-wrap;
+}
+
+/* ==========================================================================
+   10. Loading-state container (CSS-only spinner)
+   ========================================================================== */
+
+.aesr-state-loading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-l);
+	gap: var(--space-s);
+}
+
+.aesr-state-loading__body {
+	font-size: var(--font-size-body-s);
+	color: var(--color-text-secondary);
+}
+
+.aesr-state-loading__spinner {
+	width: 20px;
+	height: 20px;
+	border: 2px solid var(--color-border-divider);
+	border-top-color: var(--color-text-accent);
+	border-radius: 50%;
+	animation: aesr-spin 0.8s linear infinite;
+}
+
+@keyframes aesr-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ==========================================================================
+   11. Error / alert shell (Cloudscape flashbar shell)
+   ========================================================================== */
+
+.aesr-alert {
+	display: flex;
+	flex-direction: column;
+	padding: var(--space-xs) var(--space-m);
+	border-radius: var(--radius-alert);
+	gap: var(--space-xxs);
+}
+
+.aesr-alert--error {
+	border-left: 4px solid var(--color-text-status-error);
+	background-color: var(--color-bg-container);
+}
+
+.aesr-alert__heading {
+	font-size: var(--font-size-body-m);
+	font-weight: var(--font-weight-bold);
+	color: var(--color-text-heading);
+}
+
+.aesr-alert__body {
+	font-size: var(--font-size-body-m);
+	color: var(--color-text-status-error);
+}
