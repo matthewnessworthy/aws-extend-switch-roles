@@ -38,10 +38,63 @@ async function executeAction(tabId, action, data) {
 
 let mainEl, noMainEl;
 
-function showMessage(msg, level = 'info') {
-  const p = noMainEl.querySelector('p');
-  p.textContent = msg;
-  if (level === 'error') p.style.color = '#d11';
+function showNotOnAws() {
+  const container = document.createElement('div');
+  container.className = 'aesr-state-empty';
+  const body = document.createElement('p');
+  body.className = 'aesr-state-empty__body';
+  body.textContent = 'Navigate to the AWS console to switch roles.';
+  container.appendChild(body);
+  noMainEl.innerHTML = '';
+  noMainEl.appendChild(container);
+  noMainEl.style.display = 'block';
+  mainEl.style.display = 'none';
+}
+
+function showNoRoles() {
+  const container = document.createElement('div');
+  container.className = 'aesr-state-empty';
+  const body = document.createElement('p');
+  body.className = 'aesr-state-empty__body';
+  body.textContent = 'No roles match your current account.';
+  container.appendChild(body);
+  const link = document.createElement('a');
+  link.className = 'aesr-open-options-link';
+  link.href = '#';
+  link.textContent = 'Open Configuration';
+  link.onclick = function() { openOptions(); return false; };
+  container.appendChild(link);
+  noMainEl.innerHTML = '';
+  noMainEl.appendChild(container);
+  noMainEl.style.display = 'block';
+  mainEl.style.display = 'none';
+}
+
+function showLoading() {
+  const container = document.createElement('div');
+  container.className = 'aesr-state-loading';
+  const spinner = document.createElement('div');
+  spinner.className = 'aesr-state-loading__spinner';
+  container.appendChild(spinner);
+  const body = document.createElement('p');
+  body.className = 'aesr-state-loading__body';
+  body.textContent = 'Loading roles…';
+  container.appendChild(body);
+  noMainEl.innerHTML = '';
+  noMainEl.appendChild(container);
+  noMainEl.style.display = 'block';
+  mainEl.style.display = 'none';
+}
+
+function showError(msg) {
+  const alert = document.createElement('div');
+  alert.className = 'aesr-alert aesr-alert--error';
+  const body = document.createElement('p');
+  body.className = 'aesr-alert__body';
+  body.textContent = msg;
+  alert.appendChild(body);
+  noMainEl.innerHTML = '';
+  noMainEl.appendChild(alert);
   noMainEl.style.display = 'block';
   mainEl.style.display = 'none';
 }
@@ -73,12 +126,7 @@ window.onload = function() {
   }
 
   const storageRepo = StorageProvider.getSyncRepository();
-  storageRepo.get(['visualMode', 'autoTabGrouping']).then(({ visualMode, autoTabGrouping }) => {
-    const mode = visualMode || 'default';
-    if (mode === 'dark' || (mode === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.body.classList.add('darkMode');
-    }
-
+  storageRepo.get(['autoTabGrouping']).then(({ autoTabGrouping }) => {
     if (autoTabGrouping) {
       brw.runtime.sendMessage({ action: 'listenTabGroupsRemove' });
     }
@@ -104,26 +152,36 @@ function main() {
       if (url.host.endsWith('.aws.amazon.com')
        || url.host.endsWith('.amazonaws-us-gov.com')
        || url.host.endsWith('.amazonaws.cn')) {
+        showLoading();
         executeAction(tab.id, 'loadInfo', {}).then(userInfo => {
           if (userInfo) {
             mainEl.style.display = 'block';
+            noMainEl.style.display = 'none';
             return loadFormList(url, userInfo, tab.id);
           } else {
-            showMessage('Failed to fetch user info from the AWS Management Console page', 'error');
+            showError('Failed to fetch user info from the AWS Management Console page');
           }
         })
       } else if (url.host.endsWith('.aesr.dev') && url.pathname.startsWith('/callback')) {
         remoteCallback(url)
         .then(userCfg => {
-          showMessage("Successfully connected to AESR Config Hub!");
+          const container = document.createElement('div');
+          container.className = 'aesr-state-empty';
+          const body = document.createElement('p');
+          body.className = 'aesr-state-empty__body';
+          body.textContent = 'Successfully connected to AESR Config Hub!';
+          container.appendChild(body);
+          noMainEl.innerHTML = '';
+          noMainEl.appendChild(container);
+          noMainEl.style.display = 'block';
           return writeProfileSetToTable(userCfg.profile);
         })
         .then(() => moveTabToOption(tab.id))
         .catch(err => {
-          showMessage(`Failed to connect to AESR Config Hub because.\n${err.message}`, 'error');
+          showError(`Failed to connect to AESR Config Hub because.\n${err.message}`);
         });
       } else {
-        showMessage("You'll see the role list here when the current tab is AWS Management Console page.");
+        showNotOnAws();
       }
     })
 }
@@ -135,6 +193,10 @@ async function loadFormList(curURL, userInfo, tabId) {
 
   const curCtx = new CurrentContext(userInfo, { showOnlyMatchingRoles });
   const profiles = await findTargetProfiles(curCtx);
+  if (profiles.length === 0) {
+    showNoRoles();
+    return;
+  }
   renderRoleList(profiles, tabId, curURL, userInfo.prism, { hidesAccountId, autoTabGrouping, signinEndpointInHere });
   setupRoleFilter();
 }
@@ -252,7 +314,7 @@ function setupRoleFilter() {
 async function sendSwitchRole(tabId, data) {
   const { prism, url, signinHost } = await executeAction(tabId, 'switch', data);
   if (prism && !url) {
-    showMessage("Switch failed: this session doesn't have permission to switch to target profile.", 'error');
+    showError("Switch failed: this session doesn't have permission to switch to target profile.");
     return;
   }
 
