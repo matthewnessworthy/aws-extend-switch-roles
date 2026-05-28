@@ -11,7 +11,7 @@ testInOptions('visual mode: light radio writes chrome.storage.sync visualMode ke
   },
   async () => {
     const data = await chrome.storage.sync.get(['visualMode']);
-    self.assert(data.visualMode, 'light');
+    self.assertTrue(data.visualMode === 'light');
     await chrome.storage.sync.clear();
   }
 );
