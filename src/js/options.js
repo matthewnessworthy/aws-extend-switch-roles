@@ -283,11 +283,12 @@ function focusConfigTextArea(ln) {
   ta.scrollTop = ln < 10 ? 0 : 16 * (ln - 10);
   const lines = ta.value.split('\n');
   if (ln === 1) {
-    ta.setSelectionRange(0, lines[0].length + 1);
+    ta.setSelectionRange(0, (lines[0] || '').length + 1);
     ta.focus();
     return;
   }
   ln--;
+  if (ln >= lines.length) return; // guard out-of-bounds
   const start = lines.slice(0, ln).join('\n').length + 1;
   const end = start + lines[ln].length;
   ta.setSelectionRange(start, end);
