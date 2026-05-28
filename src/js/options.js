@@ -193,6 +193,8 @@ window.onload = function() {
   elById('defaultVisualRadioButton').onchange = elById('lightVisualRadioButton').onchange = elById('darkVisualRadioButton').onchange = function() {
     const visualMode = this.value;
     syncStorageRepo.set({ visualMode });
+    localStorage.setItem('visualMode', visualMode);
+    applyTheme(visualMode);
   }
 
   syncStorageRepo.get(['configSenderId', 'configStorageArea', 'visualMode'].concat(booleanSettings))
@@ -214,6 +216,11 @@ window.onload = function() {
 
     const visualMode = data.visualMode || 'default'
     elById(visualMode + 'VisualRadioButton').checked = true;
+    const cachedMode = localStorage.getItem('visualMode') || 'default';
+    if (cachedMode !== visualMode) {
+      localStorage.setItem('visualMode', visualMode);
+      applyTheme(visualMode);
+    }
 
     loadConfigIni(StorageProvider.getRepositoryByKind(configStorageArea)).then(cfgText => {
       textArea.value = cfgText || '';
