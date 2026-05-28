@@ -186,15 +186,15 @@ body > div:first-of-type {
    11. Scrollbar (Chrome/Edge enhancement)
    ========================================================================== */
 
-#roleList ::-webkit-scrollbar {
+#roleList::-webkit-scrollbar {
 	width: 10px;
 }
 
-#roleList ::-webkit-scrollbar-track {
+#roleList::-webkit-scrollbar-track {
 	background-color: var(--color-bg-container);
 }
 
-#roleList ::-webkit-scrollbar-thumb {
+#roleList::-webkit-scrollbar-thumb {
 	background-color: var(--color-border-divider);
 }
 
