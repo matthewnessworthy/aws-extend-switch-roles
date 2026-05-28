@@ -6,6 +6,7 @@ import { SessionMemory, StorageProvider } from './lib/storage_repository.js';
 import { writeProfileSetToTable } from "./lib/profile_db.js";
 import { remoteConnect, getRemoteConnectInfo, deleteRemoteConnectInfo } from './handlers/remote_connect.js';
 import { reloadConfig } from './lib/reload-config.js';
+import { applyTheme, installVisualModeListener } from './lib/theme.js';
 
 function elById(id) {
   return document.getElementById(id);
@@ -16,6 +17,7 @@ const sessionMemory = new SessionMemory(brw);
 
 window.onload = function() {
   const syncStorageRepo = StorageProvider.getSyncRepository();
+  installVisualModeListener();
   let configStorageArea = 'sync';
   let colorPicker = new ColorPicker(document);
 
