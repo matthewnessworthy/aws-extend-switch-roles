@@ -1,0 +1,164 @@
+/* ================================================================
+   tokens.css — AESR Design System  (Cloudscape Visual Refresh)
+   3-layer cascade: :root (light/fallback) → OS dark → explicit override
+   ================================================================ */
+
+/* ── Layer 1: Light defaults (universal fallback) ─────────────── */
+:root {
+  /* --- Color: Text --- */
+  --color-text-body: #0f141a;
+  --color-text-secondary: #424650;
+  --color-text-heading: #0f141a;
+  --color-text-heading-secondary: #424650;
+  --color-text-label: #0f141a;
+  --color-text-form-secondary: #656871;
+  --color-text-disabled: #b4b4bb;
+  --color-text-interactive: #424650;
+  --color-text-interactive-hover: #0f141a;
+  --color-text-accent: #006ce0;
+  --color-link: #006ce0;
+  --color-link-hover: #002b66;
+  /* --- Color: Surfaces --- */
+  --color-bg-layout: #ffffff;
+  --color-bg-container: #ffffff;
+  --color-bg-input: #ffffff;
+  --color-bg-input-disabled: #ebebf0;
+  --color-bg-dropdown-item: #ffffff;
+  --color-bg-dropdown-item-hover: #f3f3f7;
+  --color-bg-item-selected: #f0fbff;
+  --color-bg-button-primary: #006ce0;
+  --color-bg-button-primary-hover: #004a9e;
+  --color-bg-button-normal-hover: #f0fbff;
+  /* --- Color: Borders / controls --- */
+  --color-border-divider: #c6c6cd;
+  --color-border-divider-secondary: #ebebf0;
+  --color-border-input: #8c8c94;
+  --color-border-control: #8c8c94;
+  --color-border-focus: #006ce0;
+  --color-control-checked: #006ce0;
+  /* --- Color: Status --- */
+  --color-text-status-success: #00802f;
+  --color-text-status-error: #db0000;
+  --color-text-status-warning: #855900;
+  --color-text-status-info: #006ce0;
+  /* --- Typography --- */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-mono: Monaco, Menlo, Consolas, "Courier New", monospace;
+  --font-size-body-m: 14px;
+  --font-size-body-s: 12px;
+  --font-size-heading-s: 16px;
+  --font-size-heading-l: 20px;
+  --line-height-body-m: 1.43;
+  --line-height-body-s: 1.33;
+  --line-height-heading-s: 1.25;
+  --line-height-heading-l: 1.20;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  /* --- Spacing --- */
+  --space-xxxs: 2px;
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 16px;
+  --space-l: 20px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-xxxl: 40px;
+  /* --- Radius --- */
+  --radius-input: 8px;
+  --radius-item: 8px;
+  --radius-button: 20px;
+  --radius-container: 16px;
+  --radius-badge: 4px;
+  --radius-alert: 12px;
+  --radius-focus-ring: 4px;
+  /* --- Elevation --- */
+  --shadow-container: 0 0 1px 1px #e9ebed, 0 1px 8px 2px rgba(0, 7, 22, 0.12);
+  --shadow-dropdown: 0 4px 20px 1px rgba(0, 7, 22, 0.10);
+  /* --- color-scheme (THM-05) --- */
+  color-scheme: light;
+}
+
+/* ── Layer 2: OS dark — only when user has NOT forced a theme ─── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-text-body: #c6c6cd;
+    --color-text-secondary: #c6c6cd;
+    --color-text-heading: #ebebf0;
+    --color-text-heading-secondary: #a4a4ad;
+    --color-text-label: #dedee3;
+    --color-text-form-secondary: #a4a4ad;
+    --color-text-disabled: #656871;
+    --color-text-interactive: #dedee3;
+    --color-text-interactive-hover: #f9f9fa;
+    --color-text-accent: #42b4ff;
+    --color-link: #42b4ff;
+    --color-link-hover: #75cfff;
+    --color-bg-layout: #161d26;
+    --color-bg-container: #161d26;
+    --color-bg-input: #161d26;
+    --color-bg-input-disabled: #1b232d;
+    --color-bg-dropdown-item: #1b232d;
+    --color-bg-dropdown-item-hover: #131920;
+    --color-bg-item-selected: #001129;
+    --color-bg-button-primary: #42b4ff;
+    --color-bg-button-normal-hover: #1b232d;
+    --color-border-divider: #424650;
+    --color-border-divider-secondary: #232b37;
+    --color-border-input: #656871;
+    --color-border-focus: #42b4ff;
+    --color-control-checked: #42b4ff;
+    --color-text-status-success: #2bb534;
+    --color-text-status-error: #ff7a7a;
+    --color-text-status-warning: #fbd332;
+    --color-text-status-info: #42b4ff;
+    --shadow-container: 0 1px 8px 2px rgba(0, 7, 22, 0.6);
+    --shadow-dropdown: 0 4px 20px 1px rgba(0, 4, 12, 1);
+    color-scheme: dark;
+  }
+}
+
+/* ── Layer 3a: Explicit dark override (beats OS preference) ────── */
+:root[data-theme="dark"] {
+  --color-text-body: #c6c6cd;
+  --color-text-secondary: #c6c6cd;
+  --color-text-heading: #ebebf0;
+  --color-text-heading-secondary: #a4a4ad;
+  --color-text-label: #dedee3;
+  --color-text-form-secondary: #a4a4ad;
+  --color-text-disabled: #656871;
+  --color-text-interactive: #dedee3;
+  --color-text-interactive-hover: #f9f9fa;
+  --color-text-accent: #42b4ff;
+  --color-link: #42b4ff;
+  --color-link-hover: #75cfff;
+  --color-bg-layout: #161d26;
+  --color-bg-container: #161d26;
+  --color-bg-input: #161d26;
+  --color-bg-input-disabled: #1b232d;
+  --color-bg-dropdown-item: #1b232d;
+  --color-bg-dropdown-item-hover: #131920;
+  --color-bg-item-selected: #001129;
+  --color-bg-button-primary: #42b4ff;
+  --color-bg-button-normal-hover: #1b232d;
+  --color-border-divider: #424650;
+  --color-border-divider-secondary: #232b37;
+  --color-border-input: #656871;
+  --color-border-focus: #42b4ff;
+  --color-control-checked: #42b4ff;
+  --color-text-status-success: #2bb534;
+  --color-text-status-error: #ff7a7a;
+  --color-text-status-warning: #fbd332;
+  --color-text-status-info: #42b4ff;
+  --shadow-container: 0 1px 8px 2px rgba(0, 7, 22, 0.6);
+  --shadow-dropdown: 0 4px 20px 1px rgba(0, 4, 12, 1);
+  color-scheme: dark;
+}
+
+/* ── Layer 3b: Explicit light override ─────────────────────────── */
+/* Token values already declared in :root — only color-scheme needs
+   explicit reassertion here, to override the OS dark @media on a
+   light-OS-preference: no / forced-light device. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
