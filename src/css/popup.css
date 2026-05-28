@@ -210,6 +210,14 @@ body > div:first-of-type {
 	margin: var(--space-xs) var(--space-s) var(--space-xs) auto;
 }
 
+#openSupportMe {
+	text-decoration: none;
+}
+
+#openSupportMe:hover {
+	text-decoration: underline;
+}
+
 /* ==========================================================================
    13. Empty state CTA link
    ========================================================================== */
