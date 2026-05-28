@@ -174,7 +174,7 @@ window.onload = function() {
       })
       .catch(err => {
         e.preventDefault();
-        alert(err.message);
+        updateMessage('msgSpan', err.message, 'warn');
         elById('configStorageLocalRadioButton').checked = true;
       });
     } else {
@@ -182,7 +182,7 @@ window.onload = function() {
       syncStorageRepo.set({ configStorageArea: 'local' })
       .catch(err => {
         e.preventDefault();
-        alert(err.message);
+        updateMessage('msgSpan', err.message, 'warn');
         elById('configStorageSyncRadioButton').checked = true;
       });
     }
