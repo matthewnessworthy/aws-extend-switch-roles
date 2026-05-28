@@ -20,7 +20,7 @@ done
 
 rollup -c ./rollup.config.js src/js/lib/profile_db.js --file $destdir/js/lib/profile_db.js
 cp src/js/theme-init.js $destdir/js/theme-init.js
-cp -r test/preview $destdir/preview
+cp -r test/preview $destdir/
 
 mkdir -p $destdir/tests
 for file in src/tests/*; do
