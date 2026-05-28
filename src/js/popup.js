@@ -215,7 +215,11 @@ function renderRoleList(profiles, tabId, curURL, isPrism, options) {
       }
       data.displayname = data.displayname.replace(/\s\s\|\s\s\d{12}$/, '');
     }
-    sendSwitchRole(tabId, data);
+    sendSwitchRole(tabId, data).catch(err => {
+      sender.style.fontWeight = '';
+      sender.onclick = listItemOnSelect;
+      showError(`Switch failed: ${err.message}`);
+    });
   }
   const list = document.getElementById('roleList');
   profiles.forEach(item => {
@@ -312,7 +316,11 @@ function setupRoleFilter() {
 }
 
 async function sendSwitchRole(tabId, data) {
-  const { prism, url, signinHost } = await executeAction(tabId, 'switch', data);
+  const response = await executeAction(tabId, 'switch', data);
+  if (!response) {
+    throw new Error('No response from AWS console tab. Reload the tab and try again.');
+  }
+  const { prism, url, signinHost } = response;
   if (prism && !url) {
     showError("Switch failed: this session doesn't have permission to switch to target profile.");
     return;
