@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AESR Design System Preview</title>
+  <script src="../js/theme-init.js"></script>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+  <!-- Token probe for SC1 computed-style assertion -->
+  <div id="token-probe" style="background: var(--color-bg-layout); color: var(--color-text-body)"></div>
+
+  <!-- Theme Switcher -->
+  <section data-section="theme-switcher">
+    <h2>Theme</h2>
+    <button id="btn-light">Light</button>
+    <button id="btn-dark">Dark</button>
+    <button id="btn-auto">Auto (OS)</button>
+  </section>
+
+  <!-- Buttons -->
+  <section data-section="buttons">
+    <h2>Buttons</h2>
+    <button class="aesr-btn aesr-btn--primary">Primary</button>
+    <button class="aesr-btn aesr-btn--normal">Normal</button>
+  </section>
+
+  <!-- Inputs -->
+  <section data-section="inputs">
+    <h2>Inputs</h2>
+    <input class="aesr-input" type="text" placeholder="Text input">
+    <textarea class="aesr-textarea" placeholder="Textarea"></textarea>
+    <select class="aesr-select">
+      <option>Select&hellip;</option>
+      <option>Option A</option>
+      <option>Option B</option>
+    </select>
+  </section>
+
+  <!-- Controls -->
+  <section data-section="controls">
+    <h2>Controls</h2>
+    <label>
+      <input class="aesr-checkbox" type="checkbox"> Checkbox
+    </label>
+    <label>
+      <input class="aesr-radio" type="radio" name="preview-radio"> Radio
+    </label>
+  </section>
+
+  <!-- Role-list item -->
+  <section data-section="role-list">
+    <h2>Role List Item</h2>
+    <div class="aesr-role-item">
+      <span class="aesr-role-item__account">123456789012</span>
+      <span class="aesr-role-item__name">ReadOnlyAccess</span>
+    </div>
+  </section>
+
+  <!-- Pane / container -->
+  <section data-section="pane">
+    <h2>Pane / Container</h2>
+    <div class="aesr-pane">
+      Pane content
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <section data-section="divider">
+    <h2>Divider</h2>
+    <hr class="aesr-divider">
+  </section>
+
+  <!-- Empty state -->
+  <section data-section="empty-state">
+    <h2>Empty State</h2>
+    <div class="aesr-state-empty">
+      <div class="aesr-state-empty__heading">Empty state heading</div>
+      <div class="aesr-state-empty__body">No items found. Configure roles to get started.</div>
+    </div>
+  </section>
+
+  <!-- Loading state -->
+  <section data-section="loading-state">
+    <h2>Loading State</h2>
+    <div class="aesr-state-loading">
+      <div class="aesr-state-loading__body">Loading&hellip;</div>
+    </div>
+  </section>
+
+  <!-- Alert / error -->
+  <section data-section="alert">
+    <h2>Alert / Error</h2>
+    <div class="aesr-alert aesr-alert--error">
+      <div class="aesr-alert__heading">Error heading</div>
+      <div class="aesr-alert__body">Something went wrong. Please try again.</div>
+    </div>
+  </section>
+
+  <script src="preview.js"></script>
+</body>
+</html>
