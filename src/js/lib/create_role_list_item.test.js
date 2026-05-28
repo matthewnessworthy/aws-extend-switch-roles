@@ -62,7 +62,7 @@ describe('createRoleListItem', () => {
         color: 'ffaa99',
       }
       const url = 'https://console.aws.amazonaws.com/?region=us-east-1';
-      const li = createRoleListItem(window.document, item, url, {}, (sender, data) => {});
+      const li = createRoleListItem(window.document, item, url, '', {}, (sender, data) => {});
 
       const a = li.querySelector('a')
       expect(a.title).to.eq('role-b@000011115555');
