@@ -37,7 +37,14 @@ export function createRoleListItem(document, item, url, region, { hidesAccountId
   anchor.dataset.search = item.name.toLowerCase() + ' ' + item.aws_account_id;
 
   anchor.appendChild(headSquare);
-  anchor.appendChild(document.createTextNode(item.name));
+
+  const textDiv = document.createElement('div');
+  textDiv.className = 'aesr-role-item-text';
+
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'aesr-role-item__name';
+  nameSpan.textContent = item.name;
+  textDiv.appendChild(nameSpan);
 
   if (hidesAccountId) {
     anchor.dataset.displayname = createDisplayName(item.name);
@@ -45,10 +52,12 @@ export function createRoleListItem(document, item, url, region, { hidesAccountId
     anchor.dataset.displayname = createDisplayName(item.name, item.aws_account_id);
 
     const accountIdSpan = document.createElement('span');
-    accountIdSpan.className = 'suffixAccountId';
+    accountIdSpan.className = 'aesr-role-item__account';
     accountIdSpan.textContent = item.aws_account_id;
-    anchor.appendChild(accountIdSpan);
+    textDiv.appendChild(accountIdSpan);
   }
+
+  anchor.appendChild(textDiv);
 
   anchor.onclick = function() {
     const data = { ...this.dataset }; // do not directly refer DOM data in Firefox
