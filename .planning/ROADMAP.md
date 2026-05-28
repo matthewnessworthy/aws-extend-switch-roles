@@ -94,7 +94,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 **Wave 1**
 
-- [ ] 03-01-PLAN.md — Wave 1: Token gap fix (--color-bg-button-primary-hover dark layers) + components.css alert variants
+- [x] 03-01-PLAN.md — Wave 1: Token gap fix (--color-bg-button-primary-hover dark layers) + components.css alert variants
 
 **Wave 2** *(blocked on Wave 1 completion; Plans 02 and 03 run in parallel)*
 
@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
-| 3. Options & Auxiliary Surfaces | 0/3 | Not started | - |
+| 3. Options & Auxiliary Surfaces | 1/3 | In Progress|  |
 | 4. Theme Toggle & Per-Profile Color | 0/TBD | Not started | - |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
