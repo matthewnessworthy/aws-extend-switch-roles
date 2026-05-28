@@ -2,7 +2,7 @@
 phase: 04-theme-toggle-per-profile-color
 plan: "03"
 subsystem: popup
-tags: [theme, popup, live-update, reconcile, wave-2, partial]
+tags: [theme, popup, live-update, reconcile, wave-2]
 dependency_graph:
   requires:
     - 04-01 (src/js/lib/theme.js#applyTheme, src/js/lib/theme.js#installVisualModeListener)
@@ -26,27 +26,27 @@ decisions:
 metrics:
   duration: ~10 min (Task 1 complete)
   completed: "2026-05-28"
-  tasks_completed: 1
-  tasks_pending: 1
+  tasks_completed: 2
+  tasks_pending: 0
   files_created: 0
   files_modified: 1
 ---
 
-# Phase 4 Plan 03: Popup Theme Wiring Summary (PARTIAL — Checkpoint)
+# Phase 4 Plan 03: Popup Theme Wiring Summary
 
-**One-liner:** popup.js wired with `installVisualModeListener()` and post-load reconcile of localStorage cache vs `chrome.storage.sync['visualMode']`; per-profile swatch verification pending human confirm.
+**One-liner:** popup.js wired with `installVisualModeListener()` and post-load reconcile of localStorage cache vs `chrome.storage.sync['visualMode']`; per-profile color swatches verified in both themes.
 
 ## Tasks Completed
 
 | Task | Name | Commit | Files |
 |------|------|--------|-------|
 | 1 | Add import, installVisualModeListener, and post-load reconcile to popup.js | c2fea9a | src/js/popup.js |
+| 2 | Verify per-profile color swatches render in both themes (SC #4) | (human-verified) | — |
 
-## Tasks Pending (Checkpoint)
+## Human Verification Result (Task 2)
 
-| Task | Type | Name | Status |
-|------|------|------|--------|
-| 2 | checkpoint:human-verify | Verify per-profile color swatches render in both themes (SC #4) | Awaiting human verification |
+**Status:** Approved
+Per-profile color swatches (hex fill + 1px `var(--color-border-input)` border) render correctly in both light and dark themes. Popup live-repaints `data-theme` when options page toggles theme without reload. Stored hex values unchanged.
 
 ## Verification Results (Task 1)
 
@@ -64,7 +64,7 @@ None — all three changes in popup.js are real wiring to `theme.js` exports.
 
 None — changes touch only localStorage read/write and chrome.storage.sync get callback. No new network endpoints, auth paths, or schema changes.
 
-## Self-Check (Task 1): PASSED
+## Self-Check: PASSED
 
 - [x] src/js/popup.js import block contains `import { applyTheme, installVisualModeListener } from './lib/theme.js'`
 - [x] src/js/popup.js window.onload body contains `installVisualModeListener();` before `const MANY_SWITCH_COUNT`
@@ -73,3 +73,4 @@ None — changes touch only localStorage read/write and chrome.storage.sync get 
 - [x] Existing `if (autoTabGrouping)` block present and unmodified
 - [x] Commit c2fea9a exists
 - [x] `npm test` exits 0 with 39 passing
+- [x] Per-profile swatches approved by human verify (light + dark themes)

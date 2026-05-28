@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Design System Foundation** - Token system, pre-paint theming engine, and build/plumbing — the gate everything inherits from (completed 2026-05-28)
 - [x] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600 (completed 2026-05-28)
 - [x] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages (completed 2026-05-28)
-- [ ] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode
+- [x] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode (completed 2026-05-28)
 - [ ] **Phase 5: Accessibility, Cross-Browser & Release Audit** - Final WCAG 2.1 AA audit, Firefox/Edge smoke, and store/release prep
 
 ## Phase Details
@@ -118,12 +118,12 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 **Wave 1**
 
-- [ ] 04-01-PLAN.md — Wave 1: src/js/lib/theme.js helper + unit tests + Playwright visual_mode.spec.js
+- [x] 04-01-PLAN.md — Wave 1: src/js/lib/theme.js helper + unit tests + Playwright visual_mode.spec.js
 
 **Wave 2** *(blocked on Wave 1 completion; Plans 02 and 03 run in parallel)*
 
-- [ ] 04-02-PLAN.md — Wave 2: options.js write-through + post-load reconcile + listener
-- [ ] 04-03-PLAN.md — Wave 2: popup.js post-load reconcile + listener + SC#4 human verify
+- [x] 04-02-PLAN.md — Wave 2: options.js write-through + post-load reconcile + listener
+- [x] 04-03-PLAN.md — Wave 2: popup.js post-load reconcile + listener + SC#4 human verify
 
 **UI hint**: yes
 
@@ -153,5 +153,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Design System Foundation | 5/5 | Complete   | 2026-05-28 |
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
-| 4. Theme Toggle & Per-Profile Color | 0/3 | Not started | - |
+| 4. Theme Toggle & Per-Profile Color | 3/3 | Complete    | 2026-05-28 |
 | 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |

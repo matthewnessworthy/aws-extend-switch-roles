@@ -19,9 +19,9 @@ Requirements for this milestone. Each maps to a roadmap phase.
 ### Theming
 
 - [x] **THM-01**: Every surface is fully styled in both light and dark themes
-- [ ] **THM-02**: The existing 3-state "Visual mode" (Browser default / Light / Dark) is preserved; a manual choice overrides the OS preference
+- [x] **THM-02**: The existing 3-state "Visual mode" (Browser default / Light / Dark) is preserved; a manual choice overrides the OS preference
 - [ ] **THM-03**: No flash of the wrong theme on popup or options load (FOUC eliminated via a pre-paint, non-module `theme-init.js`)
-- [ ] **THM-04**: Theme choice persists and follows the user across devices; already-open pages update live when it changes
+- [x] **THM-04**: Theme choice persists and follows the user across devices; already-open pages update live when it changes
 - [ ] **THM-05**: Native controls and scrollbars follow the active theme on Chrome, Firefox, and Edge (`color-scheme` set per theme)
 
 ### Popup
@@ -117,8 +117,8 @@ Which phases cover which requirements. Populated during roadmap creation.
 | OPT-06 | Phase 3 | Complete |
 | OPT-07 | Phase 3 | Complete |
 | AUX-01 | Phase 3 | Complete |
-| THM-02 | Phase 4 | Pending |
-| THM-04 | Phase 4 | Pending |
+| THM-02 | Phase 4 | Complete |
+| THM-04 | Phase 4 | Complete |
 | A11Y-01 | Phase 5 | Pending |
 | A11Y-02 | Phase 5 | Pending |
 | A11Y-03 | Phase 5 | Pending |
