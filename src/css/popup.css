@@ -1,0 +1,224 @@
+/* popup.css — Popup-surface styles for AESR (Phase 2).
+   All classes use the .aesr-* prefix convention (locked in Phase 1).
+   All color/size values use var(--token) — no hardcoded hex, no hardcoded px for
+   dimensions that have a token. No @import, no !important, no color-mix(), no external
+   font or icon URL. */
+
+/* ==========================================================================
+   1. Body / popup chrome
+   ========================================================================== */
+
+body {
+	max-width: 600px;
+	max-height: 600px;
+	background-color: var(--color-bg-layout);
+	margin: 0;
+	padding: 0;
+	font-family: var(--font-family-base);
+}
+
+/* Top-level flex wrapper — replaces inline style="display: flex" on the outer div */
+body > div:first-of-type {
+	display: flex;
+}
+
+/* ==========================================================================
+   2. Main pane
+   ========================================================================== */
+
+.mainPane {
+	border-right: 1px solid var(--color-border-divider);
+	padding: 0 var(--space-m);
+	min-width: 280px;
+}
+
+/* ==========================================================================
+   3. Filter row
+   ========================================================================== */
+
+.aesr-popup-filter-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: var(--space-xs) var(--space-m) var(--space-xxs);
+}
+
+.aesr-popup-filter-row .roleListTitle {
+	font-size: var(--font-size-heading-s);
+	font-weight: var(--font-weight-bold);
+	color: var(--color-text-heading);
+	white-space: nowrap;
+}
+
+#roleFilter.aesr-input {
+	flex: 1;
+	max-width: none;
+}
+
+/* ==========================================================================
+   4. Role list container
+   ========================================================================== */
+
+#roleList {
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 516px;
+	scrollbar-width: thin;
+}
+
+#roleList li {
+	padding: 0;
+	margin: var(--space-xxs) var(--space-m) var(--space-xxs) var(--space-xs);
+	list-style: none;
+	white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. Role list anchor (row flex — D-02)
+   ========================================================================== */
+
+#roleList li a {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: var(--space-xxs) 0;
+	text-decoration: none;
+	color: var(--color-text-body);
+	line-height: normal;
+	cursor: pointer;
+}
+
+#roleList li a:hover {
+	background-color: var(--color-bg-dropdown-item-hover);
+	color: var(--color-text-interactive-hover);
+}
+
+/* ==========================================================================
+   6. Text column
+   ========================================================================== */
+
+.aesr-role-item-text {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+/* Truncation additive to components.css definitions — font-size/color defined there */
+.aesr-role-item__name,
+.aesr-role-item__account {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ==========================================================================
+   7. Color swatch (.headSquare) — D-01, D-03
+   ========================================================================== */
+
+.headSquare {
+	display: inline-block;
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: var(--radius-badge);
+	border: 1px solid var(--color-border-input);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* ==========================================================================
+   8. Selected row
+   ========================================================================== */
+
+#roleList li.selected {
+	background-color: var(--color-bg-item-selected);
+}
+
+/* ==========================================================================
+   9. Sidebar nav (.optionMenu) — D-04
+   ========================================================================== */
+
+.optionMenu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.optionMenu li {
+	border-bottom: 1px solid var(--color-border-divider-secondary);
+}
+
+.optionMenu a {
+	display: block;
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-body-m);
+	font-weight: var(--font-weight-normal);
+	color: var(--color-text-body);
+	text-decoration: none;
+	padding: var(--space-xs) var(--space-l);
+	line-height: 1.43;
+}
+
+.optionMenu a:hover {
+	background-color: var(--color-bg-dropdown-item-hover);
+	color: var(--color-text-interactive-hover);
+}
+
+#openOptionsLink {
+	font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   10. Sidebar group break (D-04a)
+   ========================================================================== */
+
+.aesr-nav-group-break {
+	border-top: 1px solid var(--color-border-divider);
+	margin-top: var(--space-xxs);
+	padding-top: var(--space-xxs);
+}
+
+/* ==========================================================================
+   11. Scrollbar (Chrome/Edge enhancement)
+   ========================================================================== */
+
+#roleList ::-webkit-scrollbar {
+	width: 10px;
+}
+
+#roleList ::-webkit-scrollbar-track {
+	background-color: var(--color-bg-container);
+}
+
+#roleList ::-webkit-scrollbar-thumb {
+	background-color: var(--color-border-divider);
+}
+
+/* ==========================================================================
+   12. Support section
+   ========================================================================== */
+
+#supportComment {
+	margin: var(--space-xs);
+}
+
+#goldenkey {
+	margin: var(--space-xs) var(--space-s) var(--space-xs) auto;
+}
+
+/* ==========================================================================
+   13. Empty state CTA link
+   ========================================================================== */
+
+.aesr-open-options-link {
+	color: var(--color-link);
+	text-decoration: none;
+}
+
+.aesr-open-options-link:hover {
+	text-decoration: underline;
+}
