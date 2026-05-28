@@ -163,3 +163,7 @@ body {
 .aesr-save-row {
 	margin-top: var(--space-s);
 }
+
+.aesr-warning-note {
+	color: var(--color-text-status-warning);
+}
