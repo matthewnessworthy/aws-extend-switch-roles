@@ -261,3 +261,21 @@
 	font-size: var(--font-size-body-m);
 	color: var(--color-text-status-error);
 }
+
+.aesr-alert--success {
+	border-left: 4px solid var(--color-text-status-success);
+	background-color: var(--color-bg-container);
+}
+
+.aesr-alert--success .aesr-alert__body {
+	color: var(--color-text-status-success);
+}
+
+.aesr-alert--warning {
+	border-left: 4px solid var(--color-text-status-warning);
+	background-color: var(--color-bg-container);
+}
+
+.aesr-alert--warning .aesr-alert__body {
+	color: var(--color-text-status-warning);
+}
