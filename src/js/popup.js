@@ -4,6 +4,7 @@ import { findTargetProfiles } from './lib/target_profiles.js';
 import { SessionMemory, StorageProvider } from './lib/storage_repository.js';
 import { remoteCallback } from './handlers/remote_connect.js';
 import { writeProfileSetToTable } from './lib/profile_db.js';
+import { applyTheme, installVisualModeListener } from './lib/theme.js';
 
 const brw = chrome || browser;
 
@@ -102,6 +103,7 @@ function showError(msg) {
 window.onload = function() {
   mainEl = document.getElementById('main');
   noMainEl = document.getElementById('noMain');
+  installVisualModeListener();
 
   const MANY_SWITCH_COUNT = 4;
 
@@ -126,7 +128,12 @@ window.onload = function() {
   }
 
   const storageRepo = StorageProvider.getSyncRepository();
-  storageRepo.get(['autoTabGrouping']).then(({ autoTabGrouping }) => {
+  storageRepo.get(['autoTabGrouping', 'visualMode']).then(({ autoTabGrouping, visualMode }) => {
+    const cachedMode = localStorage.getItem('visualMode') || 'default';
+    if (cachedMode !== (visualMode || 'default')) {
+      localStorage.setItem('visualMode', visualMode || 'default');
+      applyTheme(visualMode || 'default');
+    }
     if (autoTabGrouping) {
       brw.runtime.sendMessage({ action: 'listenTabGroupsRemove' });
     }
