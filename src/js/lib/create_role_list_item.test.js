@@ -38,7 +38,7 @@ describe('createRoleListItem', () => {
       expect(a.dataset.color).to.eq('aaaaaa');
       expect(a.dataset.redirecturi).to.eq('https%3A%2F%2Fconsole.aws.amazonaws.com%2F');
       expect(a.dataset.search).to.eq('profilea 222233334444');
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">profileA</span><span class="aesr-role-item__account">222233334444</span></div>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(118, 118, 118);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">profileA</span><span class="aesr-role-item__account">222233334444</span></div>`);
 
       a.click();
       expect(handlerData).to.deep.eq({
@@ -162,7 +162,7 @@ describe('createRoleListItem', () => {
       expect(a.dataset.displayname).to.eq('ProfileC');
       expect(a.dataset.redirecturi).to.eq('https%3A%2F%2Fconsole.aws.amazonaws.com%2F%3Fregion%3Dus-east-1');
       expect(a.dataset.search).to.eq('profilec 000011117777');
-      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(170, 170, 170);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">ProfileC</span></div>`);
+      expect(a.innerHTML).to.eq(`<span class="headSquare" style="background-color: rgb(118, 118, 118);"> </span><div class="aesr-role-item-text"><span class="aesr-role-item__name">ProfileC</span></div>`);
     });
   });
 });

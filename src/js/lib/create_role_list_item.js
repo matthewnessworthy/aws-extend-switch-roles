@@ -7,7 +7,7 @@ export function createRoleListItem(document, item, url, region, { hidesAccountId
     headSquare.style.backgroundColor = `#${item.color}`;
   } else if (!item.image) {
     // set gray if both color and image are undefined
-    headSquare.style.backgroundColor = '#aaaaaa';
+    headSquare.style.backgroundColor = '#767676';
   }
   if (item.image) {
     // Validate as an http(s) URL before using it in a CSS url(). The image
