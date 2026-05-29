@@ -49,11 +49,11 @@ Requirements for this milestone. Each maps to a roadmap phase.
 
 ### Accessibility & Cross-Browser
 
-- [ ] **A11Y-01**: Every interactive element has a visible focus indicator (`:focus-visible`) in both themes
-- [ ] **A11Y-02**: All controls have accessible labels/roles/names (filter input, icon-only buttons, role list semantics, theme control)
-- [ ] **A11Y-03**: WCAG 2.1 AA contrast is met in both themes, including the rendered per-profile color
-- [ ] **A11Y-04**: No regression in the existing Playwright/jsdom tests — DOM selectors are preserved, or specs are updated in the same change
-- [ ] **A11Y-05**: Visual parity is verified on Chrome, Firefox, and Edge in both themes
+- [x] **A11Y-01**: Every interactive element has a visible focus indicator (`:focus-visible`) in both themes
+- [x] **A11Y-02**: All controls have accessible labels/roles/names (filter input, icon-only buttons, role list semantics, theme control)
+- [x] **A11Y-03**: WCAG 2.1 AA contrast is met in both themes, including the rendered per-profile color
+- [x] **A11Y-04**: No regression in the existing Playwright/jsdom tests — DOM selectors are preserved, or specs are updated in the same change
+- [x] **A11Y-05**: Visual parity is verified on Chrome, Firefox, and Edge in both themes
 
 ## v2 Requirements
 
@@ -119,13 +119,14 @@ Which phases cover which requirements. Populated during roadmap creation.
 | AUX-01 | Phase 3 | Complete |
 | THM-02 | Phase 4 | Complete |
 | THM-04 | Phase 4 | Complete |
-| A11Y-01 | Phase 5 | Pending |
-| A11Y-02 | Phase 5 | Pending |
-| A11Y-03 | Phase 5 | Pending |
-| A11Y-04 | Phase 5 | Pending |
-| A11Y-05 | Phase 5 | Pending |
+| A11Y-01 | Phase 5 | Complete |
+| A11Y-02 | Phase 5 | Complete |
+| A11Y-03 | Phase 5 | Complete |
+| A11Y-04 | Phase 5 | Complete |
+| A11Y-05 | Phase 5 | Complete |
 
 **Coverage:**
+
 - v1 requirements: 28 total (recount: FND 4 + THM 5 + POP 6 + OPT 7 + AUX 1 + A11Y 5 = 28; the prior "27" was a miscount)
 - Mapped to phases: 28 / 28 ✓
 - Unmapped: 0

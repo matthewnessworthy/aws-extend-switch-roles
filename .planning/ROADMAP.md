@@ -166,4 +166,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 3/3 | Complete    | 2026-05-28 |
-| 5. Accessibility, Cross-Browser & Release Audit | 3/3 | Complete   | 2026-05-29 |
+| 5. Accessibility, Cross-Browser & Release Audit | 3/3 | Complete    | 2026-05-29 |
