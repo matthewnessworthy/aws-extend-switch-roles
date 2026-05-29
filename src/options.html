@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>AWS Extend Switch Roles - Configuration</title>
@@ -89,7 +89,7 @@
    <li><code>region</code> - Changing the region whenever switching the role if this parameter is specified.</li>
    <li><code>image</code> - The uri of an image to use on top of any color attribute supplied. The color and image are not mutually exclusive.</li>
   </ul>
-  <pre class="aesr-pre">
+  <pre class="aesr-pre" tabindex="0">
 [profile marketingadmin]
 role_arn = arn:aws:iam::123456789012:role/marketingadmin
 color = ffaaee
@@ -119,7 +119,7 @@ image = "https://aesr.dev/img/150"
    <li>If <code>target_role_name</code> is set in <b>base account</b>, the value is provided as the default role name for each <b>target roles</b>.</li>
    <li>If <code>target_region</code> is set in <b>base account</b>, the value is provided as the default region for each <b>target roles</b>.</li>
   </ul>
-  <pre class="aesr-pre">
+  <pre class="aesr-pre" tabindex="0">
 [organization1]
 aws_account_id = 000011112222
 aws_account_alias = your-account-alias
