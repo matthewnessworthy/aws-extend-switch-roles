@@ -84,7 +84,7 @@ body > div:first-of-type {
 	flex-direction: row;
 	align-items: center;
 	gap: var(--space-xs);
-	padding: var(--space-xxxs) var(--space-xs);
+	padding: var(--space-xxs) var(--space-xs);
 	text-decoration: none;
 	color: var(--color-text-body);
 	line-height: normal;
@@ -177,9 +177,9 @@ body > div:first-of-type {
    ========================================================================== */
 
 .aesr-nav-group-break {
-	border-top: 1px solid var(--color-border-divider);
-	margin-top: var(--space-xxs);
-	padding-top: var(--space-xxs);
+	/* The preceding item's border-bottom + this margin gap is the single group
+	   separator. A border-top here would stack a second line under Configuration. */
+	margin-top: var(--space-xs);
 }
 
 /* ==========================================================================
