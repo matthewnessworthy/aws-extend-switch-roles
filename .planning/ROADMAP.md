@@ -143,7 +143,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 **Wave 1**
 
-- [ ] 05-01-PLAN.md — Wave 1: ARIA label gaps (popup.html, options.html, supporters.html) + contrast fixes (tokens.css, create_role_list_item.js + test) + axe-core decision
+- [x] 05-01-PLAN.md — Wave 1: ARIA label gaps (popup.html, options.html, supporters.html) + contrast fixes (tokens.css, create_role_list_item.js + test) + axe-core decision
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -166,4 +166,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 3/3 | Complete    | 2026-05-28 |
-| 5. Accessibility, Cross-Browser & Release Audit | 0/3 | Not started | - |
+| 5. Accessibility, Cross-Browser & Release Audit | 1/3 | In Progress|  |
