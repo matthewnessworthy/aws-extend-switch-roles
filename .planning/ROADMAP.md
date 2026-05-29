@@ -140,7 +140,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Visual parity is verified by **manual smoke test on Chrome, Firefox, and Edge in both themes** (native scrollbars/checkboxes/textarea included), since the Playwright emulator is Chrome-only.
   5. Release prep is complete: store screenshots/tiles re-shot for all **three** stores (light + dark), AMO reproducible-build source + pinned build steps prepared, packaged archive size sanity-checked, and **no permission or host diff** vs the existing manifest (keeps the fast review path).
 
-**Plans**: TBD
+**Plans**: 3 plans
+**Wave 1**
+
+- [ ] 05-01-PLAN.md — Wave 1: ARIA label gaps (popup.html, options.html, supporters.html) + contrast fixes (tokens.css, create_role_list_item.js + test) + axe-core decision
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 05-02-PLAN.md — Wave 2: Full test suite run + axe spec (if chosen) + Firefox/Edge manual smoke
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 05-03-PLAN.md — Wave 3: Build + archive + manifest diff + size check + store screenshots + AMO source zip
+
 **UI hint**: yes
 
 ## Progress
@@ -154,4 +166,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 3/3 | Complete    | 2026-05-28 |
-| 5. Accessibility, Cross-Browser & Release Audit | 0/TBD | Not started | - |
+| 5. Accessibility, Cross-Browser & Release Audit | 0/3 | Not started | - |
