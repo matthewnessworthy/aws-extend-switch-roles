@@ -89,6 +89,7 @@
 	display: flex;
 	align-items: flex-start;
 	gap: var(--space-m);
+	margin-top: var(--space-m);
 }
 
 /* Status div margin (replaces style="margin-left: 20px") */
