@@ -25,7 +25,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Popup Surface** - Apply the design system to the popup (role list, filter, states, swatch) within 600×600 (completed 2026-05-28)
 - [x] **Phase 3: Options & Auxiliary Surfaces** - Apply the design system to options (editor, controls, color picker, Config Hub) and the supporters/credits/updated pages (completed 2026-05-28)
 - [x] **Phase 4: Theme Toggle & Per-Profile Color** - Wire the persisted 3-state toggle with live update, and reconcile per-profile color with dark mode (completed 2026-05-28)
-- [ ] **Phase 5: Accessibility, Cross-Browser & Release Audit** - Final WCAG 2.1 AA audit, Firefox/Edge smoke, and store/release prep
+- [x] **Phase 5: Accessibility, Cross-Browser & Release Audit** - Final WCAG 2.1 AA audit, Firefox/Edge smoke, and store/release prep (completed 2026-05-29)
 
 ## Phase Details
 
@@ -151,7 +151,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 05-03-PLAN.md — Wave 3: Build + archive + manifest diff + size check + store screenshots + AMO source zip
+- [x] 05-03-PLAN.md — Wave 3: Build + archive + manifest diff + size check + store screenshots + AMO source zip
 
 **UI hint**: yes
 
@@ -166,4 +166,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Popup Surface | 3/3 | Complete   | 2026-05-28 |
 | 3. Options & Auxiliary Surfaces | 3/3 | Complete    | 2026-05-28 |
 | 4. Theme Toggle & Per-Profile Color | 3/3 | Complete    | 2026-05-28 |
-| 5. Accessibility, Cross-Browser & Release Audit | 1/3 | In Progress|  |
+| 5. Accessibility, Cross-Browser & Release Audit | 3/3 | Complete   | 2026-05-29 |
