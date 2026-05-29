@@ -147,7 +147,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 05-02-PLAN.md — Wave 2: Full test suite run + axe spec (if chosen) + Firefox/Edge manual smoke
+- [x] 05-02-PLAN.md — Wave 2: Full test suite run + axe spec (if chosen) + Firefox/Edge manual smoke
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
