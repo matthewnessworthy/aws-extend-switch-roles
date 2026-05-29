@@ -179,7 +179,7 @@ body > div:first-of-type {
 .aesr-nav-group-break {
 	/* The preceding item's border-bottom + this margin gap is the single group
 	   separator. A border-top here would stack a second line under Configuration. */
-	margin-top: var(--space-xs);
+	margin-top: var(--space-xxs);
 }
 
 /* ==========================================================================
