@@ -8,12 +8,23 @@
    1. Body / popup chrome
    ========================================================================== */
 
+/* Flatten any popup-root border/radius (popup-scoped — popup.css is only loaded by
+   popup.html). Note: Firefox/macOS draws the popup panel arrow + rounded corners as
+   native browser chrome OUTSIDE this document, which extension CSS cannot reach; this
+   only affects radius/border applied to the popup's own html/body box. */
+html {
+	border: 0;
+	border-radius: 0;
+}
+
 body {
 	max-width: 600px;
 	max-height: 600px;
 	background-color: var(--color-bg-layout);
 	margin: 0;
 	padding: 0;
+	border: 0;
+	border-radius: 0;
 	font-family: var(--font-family-base);
 }
 
