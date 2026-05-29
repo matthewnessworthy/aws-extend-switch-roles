@@ -20,6 +20,9 @@
 
 html {
 	-webkit-text-size-adjust: 100%;
+	/* Fill the root backdrop so the Firefox popup arrow and rounded-corner panel
+	   frame (drawn from the root element, not <body>) match the theme. */
+	background-color: var(--color-bg-layout);
 }
 
 body {
