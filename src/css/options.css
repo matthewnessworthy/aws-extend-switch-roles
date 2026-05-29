@@ -34,6 +34,7 @@ body {
 	min-width: 280px;
 	background-color: var(--color-bg-input-disabled);
 	padding-bottom: var(--space-xxl);
+	line-height: 1.6; /* documentation prose — looser than the 1.43 form-control rhythm */
 }
 
 /* === 3. Section heads === */
