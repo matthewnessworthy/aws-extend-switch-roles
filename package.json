@@ -30,6 +30,7 @@
     "aesr-config": "^0.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.60.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "chai": "^6.2.2",
