@@ -22,11 +22,11 @@
     <button id="switchConfigHubButton" class="aesr-btn aesr-btn--normal">Switch into fetching from Config Hub</button>
    </div>
   </div>
-  <textarea id="awsConfigTextArea" class="aesr-textarea" spellcheck="false"></textarea>
+  <textarea id="awsConfigTextArea" class="aesr-textarea" spellcheck="false" aria-label="AWS config (INI format)"></textarea>
   <div class="aesr-color-pair">
-   <input type="color" id="colorPicker">
-   <b>#</b>
-   <input type="text" class="aesr-input" id="colorValue" maxlength="6" placeholder="RRGGBB">
+   <input type="color" id="colorPicker" aria-label="Profile color">
+   <b aria-hidden="true">#</b>
+   <input type="text" class="aesr-input" id="colorValue" maxlength="6" placeholder="RRGGBB" aria-label="Profile color hex value">
    <a target="_blank" rel="noopener noreferrer"
       href="http://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html">About ~/.aws/config file</a>
   </div>
