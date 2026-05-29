@@ -38,8 +38,8 @@ A modern, AWS-console-native extension UI with **zero regression** on any must-k
 - [ ] Light and dark themes with a manual, persisted toggle
 - [ ] Modernized INI config editor — styling, validation feedback, surrounding layout (textarea retained)
 - [ ] Improved interaction states across surfaces: empty, loading, error, focus
-- [ ] Accessibility baseline for new/changed UI: WCAG 2.1 AA contrast, visible focus, labels/roles
-- [ ] Per-profile `color` rendering reconciled with the dark theme (no broken contrast)
+- [x] Accessibility baseline for new/changed UI: WCAG 2.1 AA contrast, visible focus, labels/roles — validated in Phase 5 (axe-core spec + manual smoke; A11Y-01..05)
+- [x] Per-profile `color` rendering reconciled with the dark theme (no broken contrast) — Phase 4, AA-confirmed in Phase 5
 
 ### Out of Scope
 
@@ -98,4 +98,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-28 — Phase 4 complete (theme toggle write-through + live-update wired; per-profile color swatches verified in both themes; THM-02, THM-04 validated)*
+*Last updated: 2026-05-29 — Phase 5 complete (WCAG 2.1 AA audit via axe-core spec + manual cross-browser smoke; A11Y-01..05 verified). All 5 milestone phases done — presentation-layer UI modernization delivered; release artifacts (dist/, store zips, BUILD.md, AMO source zip) prepared. Run `/gsd-complete-milestone` for the full Active→Validated review and milestone archive. Known limitation: Zen Browser popup corner overlay (browser chrome, not extension-fixable; Chrome/Edge/stock Firefox render clean).*
