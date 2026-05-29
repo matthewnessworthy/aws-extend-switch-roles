@@ -1,38 +1,44 @@
 ---
-id: firefox-popup-arrow-corner-chrome
+id: zen-browser-popup-corner-overlay
 type: todo
-status: pending
+status: wont-fix-extension-side
 priority: low
 created: 2026-05-29
-area: theming / cross-browser
-related_phase: 04-theme-toggle-per-profile-color
+updated: 2026-05-29
+area: cross-browser / browser-chrome
+related_phase: 05-accessibility-cross-browser-release-audit
 surfaced_in: 05-02 cross-browser smoke
 ---
 
-# Firefox popup arrow + corner color follow theme/OS chrome, not extension CSS
+# Popup arrow/corner "broken" look is Zen Browser chrome, NOT extension-fixable
 
-## Observation (Phase 5 cross-browser smoke, 2026-05-29)
-On Firefox/macOS with a **custom Firefox theme** (pink/mauve toolbar), the popup's
-panel **arrow** and outer **rounded corners** render in the browser/theme chrome color,
-not the dark extension background — a visible mismatch against the dark popup body.
+## Final diagnosis (corrected 2026-05-29)
+The reporter is on **Zen Browser** (a Firefox fork), **default Zen theme** — NOT a custom
+Firefox theme (an earlier guess, now disproven). Zen applies its own **rounded-corner
+overlay** to the browser viewport and panels, including extension popups. The popup's
+arrow + corner mismatch is Zen's overlay drawn OVER the panel, in browser chrome that
+extension CSS cannot reach.
 
-## Why it's not a simple extension-CSS fix
-- Firefox extends the popup `<body>` background to the arrow since FF51 (bug 1293099),
-  but an **active Firefox theme paints the panel chrome (arrow) ahead of that**, and
-  **macOS draws the rounded-corner panel frame natively**. Both override extension CSS.
-- Likely also interacts with first-paint theme sampling: the popup theme is applied via
-  `theme-init.js` (sync, localStorage) + `popup.js` (async, chrome.storage). If first
-  paint isn't dark, Firefox samples a light arrow/corner before the dark theme lands.
-- Chrome/Edge popups have **no arrow** and rendered cleanly — this affects only
-  Firefox-with-a-custom-theme, a small user slice.
+Evidence:
+- Reproduced on Zen's DEFAULT theme (rules out a user theme).
+- Two extension-side CSS attempts had ZERO effect: (1) `html,body { background }` fill,
+  (2) `html,body { border:0; border-radius:0 }`. Both reverted.
+- Zen's own issue tracker documents this corner-overlay behavior:
+  zen-browser/desktop #497 (Corners CSS overlay), #2512 (Annoying border radius effect),
+  #1404 (Remove the corners of the browser).
+- Firefox bugs 1280128/1293099 (popup bg → corners/arrow) are FIXED on stock Firefox;
+  Chrome/Edge popups have no arrow. Renders clean on all mainstream browsers.
+
+## Why it is not extension-fixable
+The popup HTML renders INSIDE a browser panel. The panel arrow/corner/border is browser
+chrome (Zen's overlay). Extension CSS styles only the content inside the panel; it cannot
+set the browser-chrome corner variables. There is no WebExtension API for the popup panel.
 
 ## Decision (user, 2026-05-29)
-Accepted as a **known cosmetic limitation** for the v1.0 release. NOT a release blocker.
+Accepted as a **Zen-specific cosmetic limitation** for the v1.0 release. NOT a release
+blocker. Affects only Zen Browser users.
 
-## If revisited (Phase 4 theming territory)
-- Verify whether guaranteeing a synchronous dark first-paint (localStorage always
-  populated before popup open) makes Firefox sample the arrow correctly on the DEFAULT
-  Firefox theme.
-- Confirm the residual mismatch only persists under a custom Firefox theme (expected
-  to be unfixable from extension CSS).
-- Test matrix: Firefox default theme vs custom theme × OS-dark vs explicit-dark.
+## The only lever (browser-side, NOT shippable)
+Zen users can adjust corner radius via Zen settings / Zen Mods / `userChrome.css`
+(overriding Zen's `--zen-*` corner radius variables). This is the user's browser config,
+not something the extension can ship.
