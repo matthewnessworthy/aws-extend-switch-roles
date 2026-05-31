@@ -1,55 +1,51 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: ready_to_plan
-last_updated: 2026-05-28T19:04:31.907Z
-last_activity: 2026-05-28 -- Phase 03 execution started
+milestone: v6.3.0
+milestone_name: UI Modernization
+status: milestone_closed
+last_updated: "2026-05-31T15:53:01.388Z"
+last_activity: 2026-05-31 — Milestone v6.3.0 completed and archived
 progress:
   total_phases: 5
-  completed_phases: 2
-  total_plans: 11
-  completed_plans: 11
-  percent: 40
-stopped_at: Phase 03 complete (3/3) — ready to discuss Phase 4
+  completed_phases: 5
+  total_plans: 17
+  completed_plans: 17
+  percent: 100
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-05-27)
+See: .planning/PROJECT.md (updated 2026-05-31)
 
 **Core value:** A modern, AWS-console-native extension UI with zero regression on any must-keep capability.
-**Current focus:** Phase 4 — theme toggle & per profile color
+**Current focus:** Awaiting next milestone
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-05-28
-
-Progress: [░░░░░░░░░░] 0%
+Phase: Milestone v6.3.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-05-31 — Milestone v6.3.0 completed and archived
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 3
+- Total plans completed: 17 (across 5 phases)
 - Average duration: — min
 - Total execution time: 0.0 hours
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 03 | 3 | - | - |
-
-**Recent Trend:**
-
-- Last 5 plans: —
-- Trend: —
+| Phase | Plans |
+|-------|-------|
+| 01 | 5 |
+| 02 | 3 |
+| 03 | 3 |
+| 04 | 3 |
+| 05 | 3 |
 
 *Updated after each plan completion*
 
@@ -58,38 +54,39 @@ Progress: [░░░░░░░░░░] 0%
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- Roadmap: Horizontal layers — foundation (tokens + theming engine + build) is the gate; surfaces applied one at a time; toggle wiring + per-profile color after surfaces; a11y/cross-browser/release as a final audit.
-- Foundation rules locked at Phase 1: no `@cloudscape-design/*` (incl. `design-tokens`), no framework, system font stack, CSS as copied static assets (not Rollup-bundled), external non-module pre-paint `theme-init.js`, `data-theme` on `<html>`, `color-scheme` per theme, no CSP relaxation.
+See `.planning/PROJECT.md` for the full milestone v6.3.0 decision log with outcomes.
 
 ### Pending Todos
 
 [From .planning/todos/pending/ — ideas captured during sessions]
 
-None yet.
+- `firefox-popup-arrow-corner-chrome.md` — Zen Browser chrome overlay, NOT extension-fixable (status: wont-fix-extension-side; low priority; documented in PROJECT.md Out of Scope).
 
 ### Blockers/Concerns
 
 [Issues that affect future work]
 
-Open design decisions (resolve in UI-phase / phase planning, recommended leans in ROADMAP.md "Open Design Decisions"):
-
-- Per-profile `color` × dark-mode rendering rule (lean: Option E contrast border) — shared by POP-06 (Phase 2) and OPT-06 (Phase 3); decide before Phase 2 planning.
-- Theme-toggle placement (lean: options page authoritative; popup reflects) and 3-state shape (lean: segmented control preserving `'default'`/`'light'`/`'dark'` in existing sync key) — Phase 4.
-
-Cross-cutting exit gates baked into each surface phase: tests green (or specs updated in-PR), AA contrast both themes, visible focus, cross-browser smoke, no dead-code routing (`lib/content.js` / `lib/auto_assume_last_role.js`), no permission/host diff.
+None — milestone v6.3.0 closed; open design decisions were resolved during execution (Option E swatch rule, 3-state segmented control on existing `visualMode` sync key).
 
 ## Deferred Items
 
-Items acknowledged and carried forward from previous milestone close:
+Items acknowledged at milestone v6.3.0 close on 2026-05-31 — all bookkeeping artifacts, no real gaps:
 
-| Category | Item | Status | Deferred At |
-|----------|------|--------|-------------|
-| *(none)* | | | |
+| Category | Item | Status | Notes |
+|----------|------|--------|-------|
+| verification | Phase 02 VERIFICATION human_needed | acknowledged | 5/5 automated truths verified; visual sign-offs subsumed by Phase 5's WCAG/cross-browser audit (passed 5/5) |
+| verification | Phase 03 VERIFICATION human_needed | acknowledged | 5/5 automated truths verified; visual items re-verified in Phase 5 |
+| uat | Phase 03 HUMAN-UAT 5 pending | acknowledged | Identical visual scenarios to Phase 03 verification; covered by Phase 5 |
+| quick_task | code-review-remediation (20260527) | complete-no-summary | Frontmatter status: complete (24 findings fixed, 22 branches pushed); only missing SUMMARY.md marker |
+| todo | firefox-popup-arrow-corner-chrome | wont-fix-extension-side | Documented non-fixable Zen Browser chrome overlay |
 
 ## Session Continuity
 
-Last session: 2026-05-28T15:48:02.229Z
-Stopped at: Phase 3 UI-SPEC approved
-Resume file: .planning/phases/03-options-auxiliary-surfaces/03-UI-SPEC.md
+Last session: 2026-05-31 — Milestone v6.3.0 closed and archived
+Stopped at: Milestone complete
+Resume file: —
+
+## Operator Next Steps
+
+- Start the next milestone with `/gsd-new-milestone`
+- Optional: rebuild dist/ + store zips at v6.3.0 (Phase 5 artifacts were built at 6.2.1; rebuild required for actual store publish)

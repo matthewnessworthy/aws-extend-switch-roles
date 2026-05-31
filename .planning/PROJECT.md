@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A browser extension (Chrome MV3, Firefox MV2, Edge) that extends AWS IAM role switching beyond the console's built-in 5-role history. Users configure a list of switchable roles in INI format (mirroring `~/.aws/config`) and switch via a popup menu. **This milestone modernizes the look and feel** — a visual and interaction redesign of every UI surface, aligned to AWS's current console (Cloudscape) design language, with light/dark theming — without changing any underlying behavior.
+A browser extension (Chrome MV3, Firefox MV2, Edge) that extends AWS IAM role switching beyond the console's built-in 5-role history. Users configure a list of switchable roles in INI format (mirroring `~/.aws/config`) and switch via a popup menu. **v6.3.0 modernized the look and feel** — a Cloudscape-derived visual + interaction redesign of every UI surface with light/dark theming — without changing any underlying behavior.
 
 ## Core Value
 
@@ -12,7 +12,7 @@ A modern, AWS-console-native extension UI with **zero regression** on any must-k
 
 ### Validated
 
-<!-- Existing, shipped capabilities inferred from the codebase. This is the "must keep working" contract. -->
+<!-- Existing must-keep capabilities plus v6.3.0 deliveries. These are locked — changing them requires explicit discussion. -->
 
 - ✓ Standard IAM role switching (popup → content script → AWS console switchrole form) — existing
 - ✓ Prism / IAM Identity Center (multi-session) role switching — existing
@@ -26,43 +26,45 @@ A modern, AWS-console-native extension UI with **zero regression** on any must-k
 - ✓ Auto tab-grouping of switched roles (Chrome only, golden-key gated) — existing
 - ✓ Cross-browser support: Chrome MV3 service worker, Firefox MV2 background scripts, Edge — existing
 - ✓ Color picker widget on the options page — existing
+- ✓ Popup redesigned to AWS-console-native (Cloudscape) aesthetic with clear empty/loading/error states — v6.3.0 (Phase 2)
+- ✓ Options page redesigned (Cloudscape containers/cards, form controls, INI editor framed, alerts, storage selector, color picker theme-aware, Config Hub controls) — v6.3.0 (Phase 3)
+- ✓ Auxiliary pages (supporters, credits, updated) restyled to the shared token system in both themes — v6.3.0 (Phase 3)
+- ✓ Shared hand-written CSS design system: 6 files (tokens, base, components, popup, options, pages) consuming `var(--token)` only — v6.3.0 (Phase 1)
+- ✓ Light and dark themes with a manual, persisted 3-state toggle (`default`/`light`/`dark`) on the existing `chrome.storage.sync['visualMode']` key, cross-tab live update via `storage.onChanged` — v6.3.0 (Phase 4)
+- ✓ Modernized INI config editor (monospace, framed) retained as single source of truth — v6.3.0 (Phase 3)
+- ✓ Improved interaction states (empty, loading, error, focus-visible) across all surfaces — v6.3.0 (Phases 2–3)
+- ✓ Accessibility baseline: WCAG 2.1 AA contrast, visible focus, labels/roles — v6.3.0 (Phase 5, axe-core spec + manual smoke)
+- ✓ Per-profile `color` reconciled with the dark theme via Option E (theme-aware contrast border around stored hex; stored value never mutated) — v6.3.0 (Phase 4, AA-confirmed Phase 5)
+- ✓ FOUC-free theming via external pre-paint `theme-init.js` (synchronous `localStorage` read + `data-theme` on `<html>`) — v6.3.0 (Phase 1)
+- ✓ Build pipeline ships `src/css/*.css` + `src/js/theme-init.js` as static copy to both Chrome and Firefox dist; no manifest, permission, or host diff — v6.3.0 (Phase 1)
 
 ### Active
 
-<!-- The UI modernization milestone. All hypotheses until shipped. -->
+<!-- Empty — next milestone goals will land here via /gsd-new-milestone. -->
 
-- [ ] Popup redesigned to AWS-console-native aesthetic (role list, filter, states)
-- [ ] Options page redesigned (config editor, storage-area selection, color picker, Config Hub controls)
-- [ ] Auxiliary pages redesigned (supporters, credits, updated)
-- [ ] Shared hand-written CSS design system (tokens: color, type, spacing, radius, elevation)
-- [ ] Light and dark themes with a manual, persisted toggle
-- [ ] Modernized INI config editor — styling, validation feedback, surrounding layout (textarea retained)
-- [ ] Improved interaction states across surfaces: empty, loading, error, focus
-- [x] Accessibility baseline for new/changed UI: WCAG 2.1 AA contrast, visible focus, labels/roles — validated in Phase 5 (axe-core spec + manual smoke; A11Y-01..05)
-- [x] Per-profile `color` rendering reconciled with the dark theme (no broken contrast) — Phase 4, AA-confirmed in Phase 5
+(None — awaiting next milestone goals)
 
 ### Out of Scope
 
 <!-- Explicit boundaries with reasoning, to prevent re-adding. -->
 
-- **Form-based profile editor** replacing the INI textarea — user chose to keep + polish INI; a structured editor is deferred to a later milestone
+- **Form-based profile editor** replacing the INI textarea — user chose to keep + polish INI; a structured editor is deferred
 - **Any JS/CSS framework or `@cloudscape-design/*` packages** (including the CSS-only `design-tokens` package) — violates the zero-new-runtime-deps / minimal-footprint ethos
-- **Changes to the role-switch flow, storage schema, IndexedDB structure, OAuth flow, or WAR scripts** — this is a presentation-layer milestone only
-- **New features / new switching capabilities** — this is a redesign, not a feature milestone
+- **Changes to the role-switch flow, storage schema, IndexedDB structure, OAuth flow, or WAR scripts** — v6.3.0 was presentation-only; same constraint applies going forward unless explicitly opened
 - **Changes to per-profile config semantics** (`color` / `image` / `region` keys) — backward compatibility required
+- **Zen Browser popup-corner overlay** — browser-chrome rendering, not extension-fixable (verified Phase 5; documented in `.planning/todos/pending/firefox-popup-arrow-corner-chrome.md`)
 
 ## Context
 
-- **Brownfield, mature extension.** Vanilla JS ESM bundled per-entry by Rollup; no UI framework. Full codebase map lives in `.planning/codebase/`.
-- **Existing user base across three stores** (Chrome Web Store, Firefox Add-ons, Edge Add-ons) with configs stored in sync/local storage + IndexedDB. The redesign must not force any reconfiguration.
-- **Emergent tension — per-profile `color` × dark mode:** users' stored `color` hex values were chosen against the *light* AWS console header; under a dark theme they may have poor contrast or look wrong. Resolution (auto-adjust luminance / treat the value as hue and re-derive lightness per theme / document-and-accept) is to be decided during research and the UI-phase.
-- **Theme toggle (proposed default):** lives on the options page, persisted in `chrome.storage.sync` so the preference follows the user across devices like other prefs. The UI-phase confirms final placement.
-- **Color picker** (`src/js/lib/color_picker.js`) is an options-page UI element in scope under the options redesign; it intersects the color × dark-mode tension above.
-- **Dead code present:** `src/js/lib/content.js` and `src/js/lib/auto_assume_last_role.js` are legacy/unreferenced. Ignore them — do not extend or style anything routed through them.
+- **Brownfield, mature extension.** Vanilla JS ESM bundled per-entry by Rollup; CSS shipped as static copy (not Rollup-bundled). Full codebase map lives in `.planning/codebase/`.
+- **Existing user base across three stores** (Chrome Web Store, Firefox Add-ons, Edge Add-ons). v6.3.0 ships with zero stored-data migration — existing configs work unchanged.
+- **Current product version: 6.3.0** (`manifest.json` / `package.json` / `package-lock.json`). Last published build artifacts were produced at 6.2.1 during Phase 5; actual store publish requires a v6.3.0 rebuild.
+- **Pre-paint theme cascade:** `:root` (light) → `@media(prefers-color-scheme: dark) :root` (OS dark) → `:root[data-theme]` (manual override wins). `theme-init.js` is external non-module, first child of `<head>`.
+- **Dead code present (do not extend or style):** `src/js/lib/content.js` and `src/js/lib/auto_assume_last_role.js` are legacy/unreferenced.
 
 ## Constraints
 
-- **Tech stack**: Stay vanilla — hand-written CSS + minimal JS, **zero new runtime dependencies**. Preserves minimal footprint, simpler store review, and the low-permission ethos stated in the README.
+- **Tech stack**: Stay vanilla — hand-written CSS + minimal JS, **zero new runtime dependencies**.
 - **No design-framework packages**: Emulate the Cloudscape design *language* by hand; do **not** import `@cloudscape-design/*` (including the CSS-only `design-tokens`).
 - **Backward compatibility**: No regression in role-switch flow, saved configs, popup keyboard nav, or per-profile color/image. Existing stored data must keep working without reconfiguration.
 - **MV3 / CSP**: Hand-written CSS must comply with extension CSP — keep styles in bundled/static CSS files; no policy-violating inline-style injection.
@@ -73,12 +75,14 @@ A modern, AWS-console-native extension UI with **zero regression** on any must-k
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Emulate Cloudscape design language in hand-written CSS (no `@cloudscape-design/*`, incl. `design-tokens`) | Zero-new-deps / minimal-footprint ethos; smaller bundle; simpler store review | — Pending |
-| Presentation-layer milestone only — no data model, storage, OAuth, WAR, or core-flow changes | Pins scope, protects backward compatibility, keeps risk low | — Pending |
-| Keep the raw INI editor, polish only (no form-based replacement) | User chose the lowest-risk config-UX option; preserves the power-user paste workflow | — Pending |
-| Light + dark themes via a manual, persisted toggle | User-selected; the AWS console ships both | — Pending |
-| Theme preference persisted in `chrome.storage.sync`, toggle on the options page | Follows the user across devices like other prefs (proposed; UI-phase confirms) | — Pending |
-| Accessibility target WCAG 2.1 AA for new/changed UI | "Modern" in 2026 implies it; keyboard nav is already a must-keep | — Pending |
+| Emulate Cloudscape design language in hand-written CSS (no `@cloudscape-design/*`, incl. `design-tokens`) | Zero-new-deps / minimal-footprint ethos; smaller bundle; simpler store review | ✓ Good — shipped with 6 hand-written CSS files; no new runtime deps |
+| Presentation-layer milestone only — no data model, storage, OAuth, WAR, or core-flow changes | Pins scope, protects backward compatibility, keeps risk low | ✓ Good — zero stored-data migration; existing users unaffected |
+| Keep the raw INI editor, polish only (no form-based replacement) | User chose the lowest-risk config-UX option; preserves the power-user paste workflow | ✓ Good — INI editor framed as monospace, retained as single source of truth |
+| Light + dark themes via a manual, persisted 3-state toggle (default/light/dark) on existing `chrome.storage.sync['visualMode']` key | User-selected; the AWS console ships both; preserves existing 3-state semantics with no key/area splitting | ✓ Good — write-through to localStorage + sync, cross-tab live update via `storage.onChanged` |
+| Per-profile `color` × dark-mode rendering: Option E (theme-aware contrast border around stored hex fill) | Border owns contrast; zero color math; zero data mutation; sidesteps Firefox-113 `color-mix()` floor | ✓ Good — POP-06 and OPT-06 share the rule; AA-verified Phase 5 |
+| Pre-paint `theme-init.js` as external non-module first child of `<head>` | Synchronous `localStorage` read before paint eliminates FOUC; no inline script keeps CSP intact; no permission/host diff | ✓ Good — FOUC eliminated across all 5 pages |
+| `src/css/` shipped as static copy via `bin/build.sh` (not Rollup-bundled) | Keeps CSS out of the JS module graph; simpler CSP; matches `theme-init.js` shipping model | ✓ Good — Phase 1 build pipeline change held through v6.3.0 |
+| Accessibility target WCAG 2.1 AA for new/changed UI | "Modern" in 2026 implies it; keyboard nav is already a must-keep | ✓ Good — axe-core Playwright spec caught 5 items manual review missed; all fixed |
 
 ## Evolution
 
@@ -98,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-29 — Phase 5 complete (WCAG 2.1 AA audit via axe-core spec + manual cross-browser smoke; A11Y-01..05 verified). All 5 milestone phases done — presentation-layer UI modernization delivered; release artifacts (dist/, store zips, BUILD.md, AMO source zip) prepared. Run `/gsd-complete-milestone` for the full Active→Validated review and milestone archive. Known limitation: Zen Browser popup corner overlay (browser chrome, not extension-fixable; Chrome/Edge/stock Firefox render clean).*
+*Last updated: 2026-05-31 after v6.3.0 UI Modernization milestone closed. 28/28 v1 requirements validated; all milestone decisions marked ✓ Good. Source version bumped to 6.3.0; release artifacts pending rebuild for actual store publish.*
