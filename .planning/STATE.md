@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v6.3.0
 milestone_name: UI Modernization
 status: milestone_closed
-last_updated: "2026-05-31T15:53:01.388Z"
-last_activity: 2026-05-31 — Milestone v6.3.0 completed and archived
+last_updated: "2026-06-03T11:57:42.315Z"
+last_activity: 2026-06-03 — Completed quick task 260603-je3: GitHub Actions release pipeline
 progress:
   total_phases: 5
   completed_phases: 5
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-05-31)
 Phase: Milestone v6.3.0 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-05-31 — Milestone v6.3.0 completed and archived
+Last activity: 2026-06-03 — Completed quick task 260603-je3: GitHub Actions release pipeline
 
 ## Performance Metrics
 
@@ -68,6 +68,12 @@ See `.planning/PROJECT.md` for the full milestone v6.3.0 decision log with outco
 
 None — milestone v6.3.0 closed; open design decisions were resolved during execution (Option E swatch rule, 3-state segmented control on existing `visualMode` sync key).
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260603-je3 | GitHub Actions release pipeline (build, test, package, GH Release, conditional store publish) | 2026-06-03 | bc6fc90 | [260603-je3-i-want-github-actions-to-do-all-the-rele](./quick/260603-je3-i-want-github-actions-to-do-all-the-rele/) |
+
 ## Deferred Items
 
 Items acknowledged at milestone v6.3.0 close on 2026-05-31 — all bookkeeping artifacts, no real gaps:
@@ -89,4 +95,5 @@ Resume file: —
 ## Operator Next Steps
 
 - Start the next milestone with `/gsd-new-milestone`
-- Optional: rebuild dist/ + store zips at v6.3.0 (Phase 5 artifacts were built at 6.2.1; rebuild required for actual store publish)
+- Ship v6.3.0: push the tag to `fork` to trigger the new automated release workflow: `git push fork v6.3.0` — builds, packages, attaches 4 zips to a GitHub Release, and conditionally publishes to Chrome/Firefox/Edge stores (each per-store job runs only when its secrets are configured; see `RELEASE.md`).
+- Dry-run the release pipeline before live publish: `git tag v6.3.0-rc.0 && git push fork v6.3.0-rc.0` builds + packages + creates a prerelease GitHub Release but skips all store-publish jobs.
