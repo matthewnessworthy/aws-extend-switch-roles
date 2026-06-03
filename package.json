@@ -9,6 +9,7 @@
   "scripts": {
     "archive": "npm run build; ./bin/archive.sh",
     "archive:dev": "npm run build:dev; ./bin/archive.sh",
+    "archive:source": "npm run build; ./bin/source_zip.sh",
     "build": "./bin/build.sh",
     "build:dev": "./bin/build.sh --dev",
     "pretest": "./bin/build_test.sh",
