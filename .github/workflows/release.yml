@@ -53,7 +53,7 @@ jobs:
             echo "prerelease=$prerelease"
           } >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ steps.compute.outputs.tag }}
 
@@ -67,7 +67,7 @@ jobs:
 
       - name: Cache Playwright browsers
         id: cache-playwright-browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
@@ -125,7 +125,7 @@ jobs:
           ls -la release-artifacts
 
       - name: Upload release artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-zips-${{ steps.compute.outputs.tag }}
           path: release-artifacts/*.zip
@@ -133,7 +133,7 @@ jobs:
           if-no-files-found: error
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.compute.outputs.tag }}
           name: ${{ steps.compute.outputs.tag }}
@@ -162,7 +162,7 @@ jobs:
           fi
 
       - name: Download release artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-zips-${{ needs.build-and-release.outputs.tag }}
           path: release-artifacts
@@ -193,7 +193,7 @@ jobs:
           fi
 
       - name: Download release artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-zips-${{ needs.build-and-release.outputs.tag }}
           path: release-artifacts
@@ -226,7 +226,7 @@ jobs:
           fi
 
       - name: Download release artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-zips-${{ needs.build-and-release.outputs.tag }}
           path: release-artifacts
