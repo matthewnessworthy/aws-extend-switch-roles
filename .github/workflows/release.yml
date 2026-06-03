@@ -108,13 +108,20 @@ jobs:
           VERSION: ${{ steps.compute.outputs.version }}
         run: |
           mkdir -p release-artifacts
-          cp "dist/chrome/aesr-chrome-${VERSION}.zip"   "release-artifacts/aesr-chrome-${VERSION}.zip"
-          cp "dist/firefox/aesr-firefox-${VERSION}.zip" "release-artifacts/aesr-firefox-${VERSION}.zip"
+          # The build/archive scripts name zips from dist/version, which is the
+          # manifest version with dots->dashes and no prerelease suffix (e.g.
+          # 6.3.0 -> "6-3-0"). The release/tag VERSION may differ (e.g.
+          # "6.3.0-rc.1"), so read the produced names from dist/version and copy
+          # them to the tag-versioned dest names that the GH Release `files:` and
+          # the publish jobs reference.
+          ARTIFACT_VERSION="$(cat dist/version)"
+          cp "dist/chrome/aesr-chrome-${ARTIFACT_VERSION}.zip"   "release-artifacts/aesr-chrome-${VERSION}.zip"
+          cp "dist/firefox/aesr-firefox-${ARTIFACT_VERSION}.zip" "release-artifacts/aesr-firefox-${VERSION}.zip"
           # Edge accepts the Chrome MV3 zip as-is; an explicit edge-named artifact
           # makes the GH Release inventory self-documenting and gives the edge
           # publish job a stable filename to reference.
-          cp "dist/chrome/aesr-chrome-${VERSION}.zip"   "release-artifacts/aesr-edge-${VERSION}.zip"
-          cp "dist/aesr-source-${VERSION}.zip"          "release-artifacts/aesr-source-${VERSION}.zip"
+          cp "dist/chrome/aesr-chrome-${ARTIFACT_VERSION}.zip"   "release-artifacts/aesr-edge-${VERSION}.zip"
+          cp "dist/aesr-source-${ARTIFACT_VERSION}.zip"          "release-artifacts/aesr-source-${VERSION}.zip"
           ls -la release-artifacts
 
       - name: Upload release artifacts
