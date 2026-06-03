@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 6.4.0 (2026/06/03)
+
+- Remove the AESR Config Hub remote configuration feature and its `aesr.dev` host permission. If you previously synced configuration from Config Hub, re-enter your configuration on the options page
+- Add a privacy policy (see PRIVACY.md)
+
+## 6.3.0 (2026/06/03)
+
+- Redesign the popup and options UI to align with the current AWS Management Console (Cloudscape) design language, including light and dark themes
+
 ## 6.1.0 (2024-12-14)
 
 - Add comprehensive keyboard navigation support for the popup interface (thanks to @aaronsuns)

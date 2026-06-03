@@ -19,7 +19,6 @@
     <span>Storage:</span>
     <label for="configStorageSyncRadioButton"><input type="radio" class="aesr-radio" name="configStorage" id="configStorageSyncRadioButton" value="sync">Sync</label>
     <label for="configStorageLocalRadioButton"><input type="radio" class="aesr-radio" name="configStorage" id="configStorageLocalRadioButton" value="local">Local</label>
-    <button id="switchConfigHubButton" class="aesr-btn aesr-btn--normal">Switch into fetching from Config Hub</button>
    </div>
   </div>
   <textarea id="awsConfigTextArea" class="aesr-textarea" spellcheck="false" aria-label="AWS config (INI format)"></textarea>
@@ -33,24 +32,6 @@
   <div class="aesr-save-row">
    <button id="saveButton" class="aesr-btn aesr-btn--primary">Save Configuration</button>
    <div id="msgSpan"></div>
-  </div>
- </section>
- <section id="configHubPanel" style="display: none">
-  <h2>Config Hub settings</h2>
-  <div class="aesr-form-row">
-    <label for="configHubDomain">Domain:</label>
-    <input id="configHubDomain" type="text" class="aesr-input" maxlength="40">.aesr.dev
-  </div>
-  <div class="aesr-form-row">
-    <label for="configHubClientId">Client ID:</label>
-    <input id="configHubClientId" type="text" class="aesr-input" maxlength="40">
-  </div>
-  <div class="aesr-save-row">
-   <button id="cancelConfigHubButton" class="aesr-btn aesr-btn--normal">Cancel</button>
-   <button id="connectConfigHubButton" class="aesr-btn aesr-btn--normal">Connect Config Hub</button>
-   <button id="disconnectConfigHubButton" class="aesr-btn aesr-btn--normal">Disconnect</button>
-   <button id="reloadConfigHubButton" class="aesr-btn aesr-btn--normal">Reload config from Hub</button>
-   <div id="remoteMsgSpan"></div>
   </div>
  </section>
  <section id="settings">
@@ -102,7 +83,7 @@ region=ap-northeast-1
 [athirdaccount]
 aws_account_id = 987654321988
 role_name = athirdrole
-image = "https://aesr.dev/img/150"
+image = "https://example.com/img/150"
   </pre>
  </section>
  <section>

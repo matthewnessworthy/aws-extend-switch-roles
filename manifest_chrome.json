@@ -2,7 +2,6 @@
   "permissions": ["activeTab", "storage"],
   "minimum_chrome_version": "89.0",
   "optional_permissions": ["tabGroups"],
-  "optional_host_permissions": ["https://*.aesr.dev/*"],
   "background": {
     "service_worker": "js/background.js",
     "type": "module"

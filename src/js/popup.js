@@ -2,8 +2,6 @@ import { createRoleListItem } from './lib/create_role_list_item.js';
 import { CurrentContext } from './lib/current_context.js';
 import { findTargetProfiles } from './lib/target_profiles.js';
 import { SessionMemory, StorageProvider } from './lib/storage_repository.js';
-import { remoteCallback } from './handlers/remote_connect.js';
-import { writeProfileSetToTable } from './lib/profile_db.js';
 import { applyTheme, installVisualModeListener } from './lib/theme.js';
 
 const brw = chrome || browser;
@@ -26,11 +24,6 @@ function openPage(pageUrl) {
 async function getCurrentTab() {
   const [tab] = await brw.tabs.query({ currentWindow:true, active:true });
   return tab;
-}
-
-async function moveTabToOption(tabId) {
-  const url = await brw.runtime.getURL('options.html');
-  await brw.tabs.update(tabId, { url });
 }
 
 async function executeAction(tabId, action, data) {
@@ -169,24 +162,6 @@ function main() {
             showError('Failed to fetch user info from the AWS Management Console page');
           }
         })
-      } else if (url.host.endsWith('.aesr.dev') && url.pathname.startsWith('/callback')) {
-        remoteCallback(url)
-        .then(userCfg => {
-          const container = document.createElement('div');
-          container.className = 'aesr-state-empty';
-          const body = document.createElement('p');
-          body.className = 'aesr-state-empty__body';
-          body.textContent = 'Successfully connected to AESR Config Hub!';
-          container.appendChild(body);
-          noMainEl.innerHTML = '';
-          noMainEl.appendChild(container);
-          noMainEl.style.display = 'block';
-          return writeProfileSetToTable(userCfg.profile);
-        })
-        .then(() => moveTabToOption(tab.id))
-        .catch(err => {
-          showError(`Failed to connect to AESR Config Hub because.\n${err.message}`);
-        });
       } else {
         showNotOnAws();
       }

@@ -3,7 +3,6 @@ import { DataProfilesSplitter } from "../lib/data_profiles_splitter.js";
 import { writeProfileItemsToTable, refreshDB } from "../lib/profile_db.js";
 import { StorageProvider } from "../lib/storage_repository.js";
 import { saveConfigIni } from "../lib/config_ini.js";
-import { reloadConfig } from "../lib/reload-config.js";
 import { CompressedTextSplitter } from "../lib/compressed_text_splitter.js";
 
 export async function updateProfilesTable() {
@@ -11,16 +10,7 @@ export async function updateProfilesTable() {
   const localRepo = StorageProvider.getLocalRepository();
 
   const { configStorageArea = 'sync', profilesLastUpdated = 0 } = await syncRepo.get(['configStorageArea', 'profilesLastUpdated']);
-  const { profilesTableUpdated = 0, remoteConnectInfo = null } = await localRepo.get(['profilesTableUpdated', 'remoteConnectInfo']);
-
-  if (remoteConnectInfo) {
-    try {
-      await reloadConfig(remoteConnectInfo);
-    } catch (err) {
-      console.warn('Failed to get profile from Config Hub');
-    }
-    return;
-  }
+  const { profilesTableUpdated = 0 } = await localRepo.get(['profilesTableUpdated']);
 
   const now = nowEpochSeconds();
   if (profilesTableUpdated === 0) {
