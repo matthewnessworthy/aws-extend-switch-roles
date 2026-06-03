@@ -14,6 +14,10 @@ export function popupInit() {
         get: (_keys, cb) => { cb({}) },
         set: (_items, cb) => { cb() },
       },
+      onChanged: {
+        addListener: () => {},
+        removeListener: () => {},
+      },
     },
     tabs: {
       query: async () => {
