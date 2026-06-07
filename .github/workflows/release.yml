@@ -168,13 +168,14 @@ jobs:
           path: release-artifacts
 
       - name: Publish to Chrome Web Store
-        # Chrome Web Store API v1.1 (classic). Self-contained curl so we depend on
-        # no third-party publish action. NOTE: the v1.1 API is supported only until
-        # 2026-10-15 — before then, migrate to the v2 API (chromewebstore.googleapis.com)
-        # which additionally requires a publisher id.
+        # Chrome Web Store API v2 (chromewebstore.googleapis.com) — the current API.
+        # Self-contained curl, no third-party publish action; credentials stay as
+        # ephemeral shell locals. v2 requires the publisher id in the path
+        # (vars.CHROME_PUBLISHER_ID; Developer Dashboard -> account).
         env:
           CHROME_PUBLISH_KEYS: ${{ secrets.CHROME_PUBLISH_KEYS }}
           EXT_ID: ${{ vars.CHROME_EXTENSION_ID }}
+          PUB_ID: ${{ vars.CHROME_PUBLISHER_ID }}
           ZIP: release-artifacts/aesr-chrome-${{ needs.build-and-release.outputs.version }}.zip
         run: |
           set -euo pipefail
@@ -185,38 +186,45 @@ jobs:
             echo "CHROME_PUBLISH_KEYS must be JSON { \"clientId\", \"clientSecret\", \"refreshToken\" }." >&2
             exit 1
           fi
-          if [ -z "$EXT_ID" ]; then echo "CHROME_EXTENSION_ID is empty." >&2; exit 1; fi
+          if [ -z "$EXT_ID" ]; then echo "vars.CHROME_EXTENSION_ID is empty." >&2; exit 1; fi
+          if [ -z "$PUB_ID" ]; then
+            echo "vars.CHROME_PUBLISHER_ID is empty — Chrome Web Store API v2 needs your publisher id (Developer Dashboard -> account). Set it as a repo variable." >&2
+            exit 1
+          fi
           echo "::add-mask::$client_secret"
           echo "::add-mask::$refresh_token"
           echo "Refreshing Chrome Web Store access token..."
-          access_token=$(curl -fsS -X POST https://oauth2.googleapis.com/token \
+          access_token=$(curl -fsS https://oauth2.googleapis.com/token \
             --data-urlencode "client_id=${client_id}" \
             --data-urlencode "client_secret=${client_secret}" \
             --data-urlencode "refresh_token=${refresh_token}" \
             --data-urlencode "grant_type=refresh_token" | jq -r '.access_token // empty')
           if [ -z "$access_token" ]; then echo "Failed to obtain Chrome access token." >&2; exit 1; fi
           echo "::add-mask::$access_token"
-          echo "Uploading ${ZIP} to item ${EXT_ID}..."
-          upload=$(curl -sS -X PUT -T "$ZIP" \
+          item="publishers/${PUB_ID}/items/${EXT_ID}"
+          echo "Uploading ${ZIP} to ${item}..."
+          resp=$(curl -sS -w $'\n%{http_code}' -X POST -T "$ZIP" \
             -H "Authorization: Bearer ${access_token}" \
-            -H "x-goog-api-version: 2" \
-            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${EXT_ID}")
-          echo "Upload response: $upload"
-          if [ "$(jq -r '.uploadState // empty' <<<"$upload")" != "SUCCESS" ]; then
-            echo "Chrome upload did not reach uploadState=SUCCESS." >&2
+            "https://chromewebstore.googleapis.com/upload/v2/${item}:upload")
+          code="${resp##*$'\n'}"; body="${resp%$'\n'*}"
+          echo "Upload HTTP ${code}: ${body}"
+          if [ "$code" != "200" ] || [ "$(jq -r '.uploadState // empty' <<<"$body")" != "SUCCEEDED" ]; then
+            echo "Chrome upload failed (HTTP ${code}, uploadState != SUCCEEDED)." >&2
             exit 1
           fi
-          echo "Publishing item ${EXT_ID}..."
-          publish=$(curl -sS -X POST -H "Content-Length: 0" \
+          echo "Publishing ${item}..."
+          resp=$(curl -sS -w $'\n%{http_code}' -X POST \
             -H "Authorization: Bearer ${access_token}" \
-            -H "x-goog-api-version: 2" \
-            "https://www.googleapis.com/chromewebstore/v1.1/items/${EXT_ID}/publish")
-          echo "Publish response: $publish"
-          if ! jq -e '.status | index("OK")' <<<"$publish" >/dev/null; then
-            echo "Chrome publish did not return status OK." >&2
-            exit 1
-          fi
-          echo "Chrome Web Store: update submitted for review."
+            "https://chromewebstore.googleapis.com/v2/${item}:publish")
+          code="${resp##*$'\n'}"; body="${resp%$'\n'*}"
+          echo "Publish HTTP ${code}: ${body}"
+          if [ "$code" != "200" ]; then echo "Chrome publish failed (HTTP ${code})." >&2; exit 1; fi
+          case "$(jq -r '.state // empty' <<<"$body")" in
+            PENDING_REVIEW|PUBLISHED|PUBLISHED_TO_TESTERS|STAGED)
+              echo "Chrome Web Store: submitted (state=$(jq -r '.state' <<<"$body"))." ;;
+            *)
+              echo "Chrome publish returned an unexpected state." >&2; exit 1 ;;
+          esac
 
   publish-firefox:
     name: Sign Firefox add-on (unlisted self-distribution)
