@@ -177,18 +177,19 @@ jobs:
           chrome-file: release-artifacts/aesr-chrome-${{ needs.build-and-release.outputs.version }}.zip
 
   publish-firefox:
-    name: Publish to Firefox AMO
+    name: Sign Firefox add-on (unlisted self-distribution)
     needs: build-and-release
     if: needs.build-and-release.outputs.prerelease != 'true' && vars.FIREFOX_EXTENSION_ID != ''
     runs-on: ubuntu-latest
     steps:
-      - name: Verify FIREFOX_PUBLISH_KEYS secret is set
+      - name: Verify Firefox AMO JWT secrets are set
         env:
-          FIREFOX_PUBLISH_KEYS: ${{ secrets.FIREFOX_PUBLISH_KEYS }}
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
         run: |
-          if [ -z "$FIREFOX_PUBLISH_KEYS" ]; then
-            echo "vars.FIREFOX_EXTENSION_ID is set but secrets.FIREFOX_PUBLISH_KEYS is empty." >&2
-            echo "Configure the secret or unset the var to skip Firefox publishing." >&2
+          if [ -z "$FIREFOX_JWT_ISSUER" ] || [ -z "$FIREFOX_JWT_SECRET" ]; then
+            echo "vars.FIREFOX_EXTENSION_ID is set but secrets.FIREFOX_JWT_ISSUER and/or secrets.FIREFOX_JWT_SECRET are empty." >&2
+            echo "Configure both secrets or unset the var to skip Firefox signing." >&2
             exit 1
           fi
 
@@ -198,16 +199,19 @@ jobs:
           name: release-zips-${{ needs.build-and-release.outputs.tag }}
           path: release-artifacts
 
-      - name: Publish to Firefox AMO
-        uses: PlasmoHQ/bpp@v3
-        with:
-          keys: |
-            {
-              "firefox": ${{ toJSON(fromJSON(secrets.FIREFOX_PUBLISH_KEYS)) }}
-            }
-          firefox-file: release-artifacts/aesr-firefox-${{ needs.build-and-release.outputs.version }}.zip
-          # AMO requires source for any extension with bundled/minified output.
-          firefox-source-file: release-artifacts/aesr-source-${{ needs.build-and-release.outputs.version }}.zip
+      - name: Unpack Firefox build
+        run: mkdir -p firefox-unpacked && unzip -q "release-artifacts/aesr-firefox-${{ needs.build-and-release.outputs.version }}.zip" -d firefox-unpacked
+
+      - name: Sign add-on (unlisted)
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+        run: npx --yes web-ext sign --channel=unlisted --source-dir=firefox-unpacked --artifacts-dir="$RUNNER_TEMP/signed-firefox"
+
+      - name: Attach signed .xpi to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ needs.build-and-release.outputs.tag }}" "$RUNNER_TEMP"/signed-firefox/*.xpi --clobber
 
   publish-edge:
     name: Publish to Edge Add-ons
