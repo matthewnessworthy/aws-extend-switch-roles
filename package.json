@@ -14,8 +14,7 @@
     "build:dev": "./bin/build.sh --dev",
     "pretest": "./bin/build_test.sh",
     "test": "mocha --timeout 10000 src/js/**/*.test.js",
-    "test_emulator": "playwright test test/emulator/*.spec.js",
-    "coverage": "codecov"
+    "test_emulator": "playwright test test/emulator/*.spec.js"
   },
   "repository": {
     "type": "git",
