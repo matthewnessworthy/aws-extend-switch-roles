@@ -168,13 +168,55 @@ jobs:
           path: release-artifacts
 
       - name: Publish to Chrome Web Store
-        uses: PlasmoHQ/bpp@v3
-        with:
-          keys: |
-            {
-              "chrome": ${{ toJSON(fromJSON(secrets.CHROME_PUBLISH_KEYS)) }}
-            }
-          chrome-file: release-artifacts/aesr-chrome-${{ needs.build-and-release.outputs.version }}.zip
+        # Chrome Web Store API v1.1 (classic). Self-contained curl so we depend on
+        # no third-party publish action. NOTE: the v1.1 API is supported only until
+        # 2026-10-15 — before then, migrate to the v2 API (chromewebstore.googleapis.com)
+        # which additionally requires a publisher id.
+        env:
+          CHROME_PUBLISH_KEYS: ${{ secrets.CHROME_PUBLISH_KEYS }}
+          EXT_ID: ${{ vars.CHROME_EXTENSION_ID }}
+          ZIP: release-artifacts/aesr-chrome-${{ needs.build-and-release.outputs.version }}.zip
+        run: |
+          set -euo pipefail
+          client_id=$(jq -r '.clientId // empty' <<<"$CHROME_PUBLISH_KEYS")
+          client_secret=$(jq -r '.clientSecret // empty' <<<"$CHROME_PUBLISH_KEYS")
+          refresh_token=$(jq -r '.refreshToken // empty' <<<"$CHROME_PUBLISH_KEYS")
+          if [ -z "$client_id" ] || [ -z "$client_secret" ] || [ -z "$refresh_token" ]; then
+            echo "CHROME_PUBLISH_KEYS must be JSON { \"clientId\", \"clientSecret\", \"refreshToken\" }." >&2
+            exit 1
+          fi
+          if [ -z "$EXT_ID" ]; then echo "CHROME_EXTENSION_ID is empty." >&2; exit 1; fi
+          echo "::add-mask::$client_secret"
+          echo "::add-mask::$refresh_token"
+          echo "Refreshing Chrome Web Store access token..."
+          access_token=$(curl -fsS -X POST https://oauth2.googleapis.com/token \
+            --data-urlencode "client_id=${client_id}" \
+            --data-urlencode "client_secret=${client_secret}" \
+            --data-urlencode "refresh_token=${refresh_token}" \
+            --data-urlencode "grant_type=refresh_token" | jq -r '.access_token // empty')
+          if [ -z "$access_token" ]; then echo "Failed to obtain Chrome access token." >&2; exit 1; fi
+          echo "::add-mask::$access_token"
+          echo "Uploading ${ZIP} to item ${EXT_ID}..."
+          upload=$(curl -sS -X PUT -T "$ZIP" \
+            -H "Authorization: Bearer ${access_token}" \
+            -H "x-goog-api-version: 2" \
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${EXT_ID}")
+          echo "Upload response: $upload"
+          if [ "$(jq -r '.uploadState // empty' <<<"$upload")" != "SUCCESS" ]; then
+            echo "Chrome upload did not reach uploadState=SUCCESS." >&2
+            exit 1
+          fi
+          echo "Publishing item ${EXT_ID}..."
+          publish=$(curl -sS -X POST -H "Content-Length: 0" \
+            -H "Authorization: Bearer ${access_token}" \
+            -H "x-goog-api-version: 2" \
+            "https://www.googleapis.com/chromewebstore/v1.1/items/${EXT_ID}/publish")
+          echo "Publish response: $publish"
+          if ! jq -e '.status | index("OK")' <<<"$publish" >/dev/null; then
+            echo "Chrome publish did not return status OK." >&2
+            exit 1
+          fi
+          echo "Chrome Web Store: update submitted for review."
 
   publish-firefox:
     name: Sign Firefox add-on (unlisted self-distribution)
@@ -235,11 +277,33 @@ jobs:
           name: release-zips-${{ needs.build-and-release.outputs.tag }}
           path: release-artifacts
 
+      # NOTE: This Edge path is UNTESTED — it has never run (EDGE_PRODUCT_ID is unset).
+      # The Edge Add-ons API v1.1 uses API-key auth, so EDGE_PUBLISH_KEYS must be JSON
+      # { "apiKey": "...", "clientId": "..." } (NOT the old clientSecret/accessTokenUrl
+      # OAuth shape). Verify on the first real release after wiring EDGE_PRODUCT_ID.
+      - name: Extract Edge credentials
+        id: edge-creds
+        env:
+          EDGE_PUBLISH_KEYS: ${{ secrets.EDGE_PUBLISH_KEYS }}
+        run: |
+          set -euo pipefail
+          api_key=$(jq -r '.apiKey // empty' <<<"$EDGE_PUBLISH_KEYS")
+          client_id=$(jq -r '.clientId // empty' <<<"$EDGE_PUBLISH_KEYS")
+          if [ -z "$api_key" ] || [ -z "$client_id" ]; then
+            echo "EDGE_PUBLISH_KEYS must be JSON { \"apiKey\", \"clientId\" } for the Edge Add-ons API v1.1." >&2
+            exit 1
+          fi
+          echo "::add-mask::$api_key"
+          echo "::add-mask::$client_id"
+          {
+            echo "api_key=$api_key"
+            echo "client_id=$client_id"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Publish to Edge Add-ons
-        uses: PlasmoHQ/bpp@v3
+        uses: wdzeng/edge-addon@v2
         with:
-          keys: |
-            {
-              "edge": ${{ toJSON(fromJSON(secrets.EDGE_PUBLISH_KEYS)) }}
-            }
-          edge-file: release-artifacts/aesr-edge-${{ needs.build-and-release.outputs.version }}.zip
+          product-id: ${{ vars.EDGE_PRODUCT_ID }}
+          zip-path: release-artifacts/aesr-edge-${{ needs.build-and-release.outputs.version }}.zip
+          api-key: ${{ steps.edge-creds.outputs.api_key }}
+          client-id: ${{ steps.edge-creds.outputs.client_id }}
